@@ -1,0 +1,22 @@
+{
+  "name": "hicons",
+  "version": "1.0.0",
+  "description": "Auto-sync Hugo icon partials from Lucide",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "hicons": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "lucide": "^0.274.0",
+    "glob": "^10.3.3",
+    "fs-extra": "^11.1.1"
+  },
+  "keywords": ["hugo", "icons", "lucide", "svg", "partial"],
+  "author": "oliwebd",
+  "license": "MIT"
+}
+
