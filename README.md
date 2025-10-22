@@ -1,6 +1,6 @@
 # hicons
 
-**Auto-sync Hugo icon partials from [Lucide](https://lucide.dev/icons/)**  
+**Hugo plugin to add [Lucide](https://lucide.dev/icons/) SVG icons without bloated layout templates**  
 
 `hicons` scans your Hugo layouts for icon usage and automatically generates or updates a Hugo partial (`icons.html`) with SVGs from Lucide. This eliminates the need for manually writing huge `if-else` blocks for each icon.
 
@@ -177,4 +177,4 @@ This will automatically pull `award` and `sparkles` SVGs from Lucide into your H
 
 ## License
 
-MIT © olimiah
+MIT © OLIMIAH
