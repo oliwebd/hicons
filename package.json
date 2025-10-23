@@ -3,14 +3,15 @@
   "version": "1.0.1",
   "description": "Auto-sync Hugo icon partials from Lucide",
   "type": "module",
-  "main": "src/index.js",
+  "main": "src/cli.js",
   "bin": {
-    "hicons": "./src/index.js"
+    "hicons": "./src/cli.js"
   },
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/cli.js"
   },
   "dependencies": {
+    "chokidar": "^4.0.3",
     "fs-extra": "^11.1.1",
     "glob": "^10.3.3",
     "lucide": "^0.274.0"
