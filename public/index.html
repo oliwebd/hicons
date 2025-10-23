@@ -4,235 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucide Icons Lookup - hicons</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnQ7hO8R9Wl81C+AEN9yTzX0Qy4/b1P/z0S" crossorigin="anonymous">
-
+    
+    <link href="/css/main.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <style>
-        :root {
-            /* Lucide primary blue/dark mode accent */
-            --bs-blue: #0070f3;
-            --bs-link-color: var(--bs-blue);
-            --bs-link-hover-color: #0056b3;
-        }
-        body {
-            transition: background-color 0.3s, color 0.3s;
-            /* Light mode background */
-            background-color: var(--bs-gray-100); 
-        }
-
-        /* Dark Mode styles (Bootstrap doesn't include full dark theme, so we style manually) */
-        .dark {
-            --bs-body-bg: #121212;
-            --bs-body-color: #f8f8f8;
-            background-color: var(--bs-body-bg) !important;
-            color: var(--bs-body-color) !important;
-        }
-        .dark .bg-white { background-color: #1e1e1e !important; border-color: #333 !important; }
-        .dark .text-gray-900 { color: #f8f8f8 !important; }
-        .dark .text-gray-600 { color: #ccc !important; }
-        .dark .text-gray-700 { color: #ddd !important; }
-        .dark .border { border-color: #333 !important; }
-        .dark .form-control, .dark .form-control:focus {
-            background-color: #2a2a2a;
-            color: #f8f8f8;
-            border-color: #444;
-        }
-
-        /* Icon Card Styling */
-        .icon-card {
-            border: 1px solid var(--bs-gray-300);
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            background-color: #fff;
-        }
-        .dark .icon-card {
-             background-color: #1e1e1e;
-        }
-        .icon-card:hover {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-color: var(--bs-blue);
-            transform: translateY(-2px);
-        }
-
-        /* Icon Color Filtering (similar to Lucide) */
-        .icon-img { filter: brightness(0) saturate(100%); }
-        .dark .icon-img { filter: brightness(0) saturate(100%) invert(85%); }
-        .icon-card:hover .icon-img { filter: invert(20%) sepia(90%) saturate(6000%) hue-rotate(200deg); }
-        .dark .icon-card:hover .icon-img { filter: invert(50%) sepia(80%) saturate(6000%) hue-rotate(200deg); }
-
-        /* Copy Button Overlay (Bootstrap doesn't have Tailwind's group-hover utility, so we use JS-like opacity) */
-        .copy-btn { opacity: 0; transition: opacity 0.15s ease-in-out; }
-        .icon-card:hover .copy-btn { opacity: 1; }
-        
-        /* Code Blocks */
-        .code-block {
-            background-color: #f7f7f7;
-            border: 1px solid #e1e1e1;
-            padding: 1rem;
-            border-radius: 0.25rem;
-            font-family: monospace;
-            overflow-x: auto;
-        }
-        .dark .code-block {
-            background-color: #1a1a1a;
-            border-color: #333;
-        }
-    </style>
 </head>
-<body class="text-dark" x-data="iconBrowser()" x-init="init()">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
 
-<div class="container-xxl p-4 p-lg-5">
-    <div class="mb-5 p-4 p-md-5 bg-white rounded-4 shadow-lg border">
-        <div class="d-flex justify-content-between align-items-start">
+<div class="max-w-7xl mx-auto p-6 lg:p-10">
+    <div class="mb-8 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+        <div class="flex items-start justify-between">
             <div>
-                <h1 class="display-5 fw-bold mb-2 text-primary">Lucide Icons Lookup</h1>
-                <p class="text-secondary fs-5">
-                    Find and copy Hugo partial code for <code class="px-2 py-1 bg-light rounded font-monospace">hicons</code>
+                <h1 class="text-4xl font-extrabold mb-2 text-primary-blue dark:text-blue-400">Lucide Icons Lookup</h1>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">
+                    Find and copy Hugo partial code for <code class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm font-mono">hicons</code>
                 </p>
             </div>
             <button
                 @click="toggleDarkMode()"
-                class="btn btn-light border-0 shadow-sm p-3 rounded-circle d-flex align-items-center justify-content-center ms-4"
+                class="ml-4 p-3 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition shadow-md"
                 title="Toggle dark mode"
+                x-data="iconBrowser()"
             >
-                <span x-show="!isDark" class="fs-4">🌙</span>
-                <span x-show="isDark" class="fs-4">☀️</span>
+                <span x-show="!isDark" class="text-2xl">🌙</span>
+                <span x-show="isDark" class="text-2xl">☀️</span>
             </button>
         </div>
 
-        <div class="mt-4 pt-4 border-top">
-            <h2 class="h4 mb-3 text-secondary">Installation & Quick Use</h2>
+        <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+            <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Installation & Quick Use</h2>
             
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="p-3 rounded-3 border bg-light">
-                        <p class="fw-bold mb-2 text-dark">1. Install `hicons` (once per project):</p>
-                        <pre class="code-block text-sm"><code>npx hicons</code></pre>
-                        <p class="text-muted small mt-2">This scans your layouts and creates your <code class="font-monospace">icons.html</code> partial.</p>
-                    </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <p class="font-medium mb-2 text-gray-700 dark:text-gray-300">1. Install `hicons` (once per project):</p>
+                    <pre class="code-block text-sm"><code>npx hicons</code></pre>
+                    <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">This creates your <code class="font-mono">icons.html</code> partial.</p>
                 </div>
                 
-                <div class="col-md-6">
-                    <div class="p-3 rounded-3 border bg-light">
-                        <p class="fw-bold mb-2 text-dark">2. Use an icon in Hugo (Copy below):</p>
-                        <pre class="code-block text-sm"><code>{{ partial "icons.html" (dict "name" "icon-name" "class" "w-6 h-6") }}</code></pre>
-                        <p class="text-muted small mt-2">Click any icon card below to copy the specific code.</p>
-                    </div>
+                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <p class="font-medium mb-2 text-gray-700 dark:text-gray-300">2. Use an icon in Hugo (Copy below):</p>
+                    <pre class="code-block text-sm"><code>{{ partial "icons.html" (dict "name" "icon-name" "class" "w-6 h-6") }}</code></pre>
+                    <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Use the cards below to copy the specific code.</p>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div class="row g-4">
-        <div class="col-12">
-            <div class="bg-white rounded-4 p-4 p-md-5 shadow-lg border">
-                <div class="position-relative">
-                    <input
-                        x-model="search"
-                        type="text"
-                        placeholder="Search icons (e.g. 'mail', 'arrow', 'user')..."
-                        class="form-control form-control-lg pe-5"
-                    />
-                    <button
-                        x-show="search.length > 0"
-                        @click="search = ''"
-                        class="btn btn-link position-absolute top-50 end-0 translate-middle-y text-muted text-decoration-none"
-                    >
-                        &times;
-                    </button>
-                </div>
-                
-                <div class="mt-4">
-                    <span class="d-block small fw-bold text-muted mb-2">Quick Search:</span>
-                    <div class="d-flex flex-wrap gap-2">
-                        <template x-for="tag in popularTags" :key="tag">
-                            <button
-                                @click="search = tag"
-                                class="btn btn-sm btn-outline-secondary rounded-pill"
-                                x-text="tag"
-                            ></button>
-                        </template>
-                    </div>
+    <div x-data="iconBrowser()" x-init="init()" class="space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+            <div class="relative">
+                <input
+                    x-model="search"
+                    type="text"
+                    placeholder="Search icons (e.g. 'mail', 'arrow', 'user')..."
+                    class="w-full p-4 pr-12 rounded-xl border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-primary-blue focus:border-primary-blue outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-lg transition shadow-inner"
+                />
+                <button
+                    x-show="search.length > 0"
+                    @click="search = ''"
+                    class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl"
+                >
+                    ✕
+                </button>
+            </div>
+            
+            <div class="mt-4 space-y-2">
+                <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Quick Search:</span>
+                <div class="flex flex-wrap gap-2">
+                    <template x-for="tag in popularTags" :key="tag">
+                        <button
+                            @click="search = tag"
+                            class="px-3 py-1.5 text-sm font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-primary-blue dark:hover:text-blue-300 transition shadow-sm"
+                            x-text="tag"
+                        ></button>
+                    </template>
                 </div>
             </div>
         </div>
 
-        <div class="col-12">
-            <div class="bg-white rounded-3 p-3 shadow-sm border d-flex justify-content-between align-items-center">
-                <div class="text-muted small">
-                    Showing <span class="fw-bold text-primary fs-5" x-text="displayedIcons.length"></span> of <span class="fw-semibold" x-text="filteredIcons.length"></span> results
-                    <span x-show="filteredIcons.length !== icons.length" class="text-secondary">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between text-sm">
+                <div class="text-gray-600 dark:text-gray-400">
+                    Showing <span class="font-bold text-primary-blue dark:text-blue-400 text-lg" x-text="displayedIcons.length"></span> of <span class="font-semibold" x-text="filteredIcons.length"></span> results
+                    <span x-show="filteredIcons.length !== icons.length" class="text-gray-500">
                         (from <span x-text="icons.length"></span> total icons)
                     </span>
                 </div>
-                <div x-show="search.length > 0" class="text-muted small fw-medium">
-                    Search: "<span class="fw-semibold text-primary" x-text="search"></span>"
+                <div x-show="search.length > 0" class="text-gray-500 dark:text-gray-500 font-medium">
+                    Search: "<span class="font-semibold text-primary-blue dark:text-blue-400" x-text="search"></span>"
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="mt-4">
-        <div x-show="loading" class="text-center py-5">
-            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-3 text-secondary fs-5">Loading icons from Lucide CDN...</p>
+        <div x-show="loading" class="text-center py-20">
+            <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-gray-300 dark:border-gray-600 border-t-primary-blue"></div>
+            <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg">Loading icons from Lucide CDN...</p>
         </div>
 
-        <div x-show="!loading && displayedIcons.length > 0" class="bg-white rounded-4 p-4 p-md-5 shadow-lg border">
-            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3">
+        <div x-show="!loading && displayedIcons.length > 0" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 <template x-for="icon in displayedIcons" :key="icon.name">
-                    <div class="col">
-                        <div
-                            class="icon-card text-center p-3 h-100 d-flex flex-column align-items-center justify-content-center"
-                            @click="copyHugoPartial(icon.name)"
-                            :title="`Click to copy ${icon.name}`"
-                        >
-                            <div class="d-flex align-items-center justify-content-center mb-3" style="width: 3rem; height: 3rem;">
-                                <img 
-                                    :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" 
-                                    :alt="icon.name"
-                                    class="icon-img w-100 h-100 transition-all"
-                                    loading="lazy"
-                                    @error="$event.target.style.display='none'"
-                                />
-                            </div>
-                            
-                            <span class="small fw-semibold text-break px-1 mb-3" x-text="icon.name"></span>
-
-                            <button
-                                class="copy-btn btn btn-primary btn-sm fw-bold shadow-sm"
-                                @click.stop="copyHugoPartial(icon.name)"
-                                title="Copy Hugo partial syntax"
-                            >
-                                📋 Copy
-                            </button>
+                    <div
+                        class="icon-card group p-4 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-gray-700 hover:shadow-lg hover:border-primary-blue dark:hover:border-blue-500 cursor-pointer flex flex-col items-center justify-center transition-all duration-200 ease-in-out relative bg-gray-50 dark:bg-gray-900/50"
+                        @click="copyHugoPartial(icon.name)"
+                        :title="`Click to copy ${icon.name}`"
+                    >
+                        <div class="w-12 h-12 mb-3 flex items-center justify-center">
+                            <img 
+                                :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" 
+                                :alt="icon.name"
+                                class="icon-img w-full h-full transition-all duration-200"
+                                loading="lazy"
+                                @error="$event.target.style.display='none'"
+                            />
                         </div>
+                        
+                        <span class="text-sm text-gray-700 dark:text-gray-300 font-semibold text-center break-all px-1 group-hover:text-primary-blue dark:group-hover:text-blue-400 transition" x-text="icon.name"></span>
+
+                        <button
+                            class="copy-btn mt-3 px-3 py-1.5 text-xs font-bold bg-primary-blue hover:bg-blue-600 text-white rounded-lg transition duration-150 ease-in-out shadow-md"
+                            @click.stop="copyHugoPartial(icon.name)"
+                            title="Copy Hugo partial syntax"
+                        >
+                            📋 Copy
+                        </button>
                     </div>
                 </template>
             </div>
             
-            <div x-show="filteredIcons.length > displayLimit" class="mt-4 text-center">
+            <div x-show="filteredIcons.length > displayLimit" class="mt-6 text-center">
                 <button
                     @click="displayLimit += 100"
-                    class="btn btn-lg btn-primary fw-semibold shadow-lg"
+                    class="px-6 py-3 bg-primary-blue hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg transition"
                 >
                     Load More Icons (<span x-text="Math.min(100, filteredIcons.length - displayLimit)"></span> more)
                 </button>
             </div>
         </div>
 
-        <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="text-center py-5 bg-white rounded-4 shadow-lg border">
-            <div class="fs-1 mb-3">🔍</div>
-            <p class="text-secondary fs-5 fw-semibold">
-                No icons found for "<span class="text-primary" x-text="search"></span>"
+        <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="text-center py-20 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <div class="text-6xl mb-4">🔍</div>
+            <p class="text-gray-500 dark:text-gray-400 text-xl font-semibold">
+                No icons found for "<span class="text-primary-blue dark:text-blue-400" x-text="search"></span>"
             </p>
-            <p class="small text-muted mt-2">
+            <p class="text-sm text-gray-400 dark:text-gray-500 mt-2">
                 Try searching by icon name or keywords like "arrow", "user", "mail", or "heart"
             </p>
         </div>
@@ -255,31 +170,23 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
             x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-            class="toast show align-items-center text-white bg-primary border-0 position-fixed bottom-0 end-0 m-3"
-            role="alert" 
-            aria-live="assertive" 
-            aria-atomic="true"
+            class="fixed bottom-6 right-6 bg-primary-blue text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 max-w-sm border-2 border-blue-400"
         >
-            <div class="d-flex">
-                <div class="toast-body d-flex align-items-center">
-                    <div class="flex-shrink-0 bg-white rounded p-1 me-2">
-                         <img 
-                            :src="`https://unpkg.com/lucide-static@0.511.0/icons/${iconName}.svg`" 
-                            class="w-6 h-6"
-                            style="width: 1.5rem; height: 1.5rem; filter: brightness(0) saturate(100%);"
-                        />
-                    </div>
-                    <div>
-                        <div class="fw-bold">Copied!</div>
-                        <div class="small opacity-90" x-text="message"></div>
-                    </div>
-                </div>
+            <div class="flex-shrink-0 bg-white rounded-lg p-2">
+                <img 
+                    :src="`https://unpkg.com/lucide-static@0.511.0/icons/${iconName}.svg`" 
+                    class="w-6 h-6"
+                    style="filter: brightness(0) saturate(100%);"
+                />
             </div>
+            <div class="flex-1">
+                <div class="font-bold text-lg">Copied!</div>
+                <div class="text-sm opacity-90" x-text="message"></div>
+            </div>
+            <span class="text-3xl">✓</span>
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 <script>
 function iconBrowser() {
@@ -317,6 +224,7 @@ function iconBrowser() {
         },
         
         loadDarkMode() {
+            // Check localStorage first
             const savedTheme = localStorage.getItem('theme');
             
             if (savedTheme === 'dark') {
@@ -326,6 +234,7 @@ function iconBrowser() {
                 this.isDark = false;
                 document.documentElement.classList.remove('dark');
             } else {
+                // Auto-detect system preference
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     this.isDark = true;
                     document.documentElement.classList.add('dark');
@@ -335,9 +244,11 @@ function iconBrowser() {
         
         async loadIcons() {
             try {
+                // Load tags data from Lucide CDN
                 const tagsResponse = await fetch('https://unpkg.com/lucide-static@0.511.0/tags.json');
                 this.tagsData = await tagsResponse.json();
                 
+                // Create icons array with name and tags
                 this.icons = Object.entries(this.tagsData).map(([name, tags]) => ({
                     name: name,
                     tags: tags || []
