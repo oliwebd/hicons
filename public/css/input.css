@@ -65,6 +65,8 @@ body {
     border-radius: 0.5rem;
     font-family: monospace;
     overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 .dark .code-block {
     background-color: #1e1e1e;
