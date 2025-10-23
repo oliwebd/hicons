@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#3b82f6">
     <title>Lucide Icons Browser - 1000+ Beautiful SVG Icons for Hugo | Hicons</title>
     
-    <link href="/css/main.css" rel="stylesheet"> 
+    <link href="/css/main.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <style>
@@ -21,14 +21,15 @@
         }
         
         .glass-effect {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(229, 231, 235, 0.5);
         }
         
         .dark .glass-effect {
-            background: rgba(17, 24, 39, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(31, 41, 55, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(75, 85, 99, 0.5);
         }
         
         .icon-card {
@@ -90,7 +91,7 @@
                 
                 <button
                     @click="toggleDarkMode()"
-                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white dark:bg-gray-700 hover:scale-110 transition-transform shadow-lg flex items-center justify-center"
+                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white dark:bg-gray-800 hover:scale-110 transition-transform shadow-lg flex items-center justify-center border border-gray-200 dark:border-gray-700"
                     aria-label="Toggle dark mode"
                 >
                     <span x-show="!isDark" class="text-xl sm:text-2xl">🌙</span>
@@ -98,8 +99,14 @@
                 </button>
             </div>
 
+            <!-- Main Use -->
+            <div class="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl sm:rounded-2xl p-3 sm:p-5 text-white shadow-xl mb-3 sm:mb-4 text-center">
+                <p class="text-sm sm:text-lg font-bold mb-1">🎯 Search → Click Icon → Code Copied → Paste in Hugo Layout → Run <code class="bg-white/30 px-2 py-0.5 rounded">npx hicons</code></p>
+                <p class="text-xs sm:text-sm opacity-90">No manual SVG downloads. Auto-generates your icons.html partial. <a href="https://github.com/oliwebd/hicons/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline font-semibold">Full Documentation →</a></p>
+            </div>
+
             <!-- Quick Start Guide -->
-            <div class="grid sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
+            <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
                 <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3 sm:p-4 text-white shadow-lg">
                     <div class="flex items-center gap-2 mb-2">
                         <span class="text-lg sm:text-2xl">📦</span>
@@ -147,7 +154,7 @@
             <template x-for="tag in popularTags" :key="tag">
                 <button
                     @click="search = tag"
-                    class="px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition shadow-sm hover:shadow-md"
+                    class="px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition shadow-sm hover:shadow-md border border-gray-200 dark:border-gray-700"
                     x-text="tag"
                 ></button>
             </template>
@@ -176,8 +183,8 @@
 
     <!-- Loading State -->
     <div x-show="loading" class="glass-effect rounded-2xl p-12 sm:p-20 shadow-xl text-center">
-        <div class="inline-block animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-gray-300 dark:border-gray-600 border-t-blue-500 mb-4"></div>
-        <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base font-medium">Loading beautiful icons...</p>
+        <div class="inline-block animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-gray-200 dark:border-gray-700 border-t-blue-500 mb-4"></div>
+        <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">Loading beautiful icons...</p>
     </div>
 
     <!-- Icons Grid -->
@@ -194,7 +201,7 @@
                         <img 
                             :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" 
                             :alt="icon.name"
-                            class="w-6 h-6 sm:w-8 sm:h-8 group-hover:brightness-0 group-hover:invert transition-all duration-200"
+                            class="w-6 h-6 sm:w-8 sm:h-8 transition-all duration-200 dark:invert dark:brightness-100 group-hover:brightness-0 group-hover:invert"
                             loading="lazy"
                             width="32"
                             height="32"
