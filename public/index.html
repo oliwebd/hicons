@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="iconBrowser()" :class="{'dark': isDark}"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +9,21 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <style>
-        /* This simulates a custom color for a more beautiful UI */
         .text-primary-blue { color: #3b82f6; } /* blue-500 */
         .bg-primary-blue { background-color: #3b82f6; } /* blue-500 */
         .focus\:ring-primary-blue { --tw-ring-color: #3b82f6; }
         .hover\:border-primary-blue { border-color: #3b82f6; }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300" x-init="init()"> 
 
-<div class="max-w-7xl mx-auto p-4 sm:p-6"> <div class="mb-4 sm:mb-6 bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+<div class="max-w-7xl mx-auto p-4 sm:p-6"> 
+    
+    <div class="mb-4 sm:mb-6 bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
         <div class="flex items-start justify-between">
             <div class="pr-2">
                 <h1 class="text-3xl sm:text-4xl font-extrabold mb-1 sm:mb-2 text-primary-blue dark:text-blue-400 leading-tight">Lucide Icons Lookup</h1>
-                <p class="text-gray-600 dark:text-gray-400 text-base sm:text-lg">
+                <p class="text-gray-600 dark:text-gray-400 text-base">
                     Find and copy Hugo partial code for <code class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs sm:text-sm font-mono">hicons</code>
                 </p>
             </div>
@@ -30,7 +31,6 @@
                 @click="toggleDarkMode()"
                 class="flex-shrink-0 ml-2 p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition shadow-md"
                 title="Toggle dark mode"
-                x-data="iconBrowser()"
             >
                 <span x-show="!isDark" class="text-xl">🌙</span>
                 <span x-show="isDark" class="text-xl">☀️</span>
@@ -43,20 +43,20 @@
             <div class="grid md:grid-cols-2 gap-3 sm:gap-4"> 
                 <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
                     <p class="font-medium mb-1 text-gray-700 dark:text-gray-300 text-sm">1. Install `hicons`:</p>
-                    <pre class="code-block text-xs sm:text-sm overflow-x-auto rounded-md bg-gray-200 dark:bg-gray-900/70 p-2"><code>npx hicons</code></pre>
+                    <pre class="code-block text-xs sm:text-sm overflow-auto rounded-md bg-gray-200 dark:bg-gray-900/70 p-2"><code>npx hicons</code></pre> 
                     <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">This creates your <code class="font-mono">icons.html</code> partial.</p>
                 </div>
                 
                 <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <p class="font-medium mb-1 text-gray-700 dark:text-gray-300 text-sm">2. Use an icon (Copy below):</p>
-                    <pre class="code-block text-xs sm:text-sm overflow-x-auto rounded-md bg-gray-200 dark:bg-gray-900/70 p-2"><code>{{ partial "icons.html" (dict "name" "icon-name" "class" "w-6 h-6") }}</code></pre>
-                    <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Use the cards below to copy the code.</p>
+                    <p class="font-medium mb-1 text-gray-700 dark:text-gray-300 text-sm">2. Use an icon (Click to copy):</p>
+                    <pre class="code-block text-xs sm:text-sm overflow-auto rounded-md bg-gray-200 dark:bg-gray-900/70 p-2"><code>{{ partial "icons.html" (dict "name" "icon-name" "class" "w-6 h-6") }}</code></pre>
+                    <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Click any icon below to copy its code.</p>
                 </div>
             </div>
         </div>
     </div>
     
-    <div x-data="iconBrowser()" x-init="init()" class="space-y-4 sm:space-y-5">
+    <div class="space-y-4 sm:space-y-5">
         
         <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-100 dark:border-gray-700">
             <div class="relative">
@@ -128,14 +128,7 @@
                         
                         <span class="text-xs text-gray-700 dark:text-gray-300 font-semibold text-center break-all px-0 group-hover:text-primary-blue dark:group-hover:text-blue-400 transition" x-text="icon.name"></span>
 
-                        <button
-                            class="copy-btn mt-1.5 px-2 py-1 text-xs font-bold bg-primary-blue hover:bg-blue-600 text-white rounded-md transition duration-150 ease-in-out shadow-sm"
-                            @click.stop="copyHugoPartial(icon.name)"
-                            title="Copy Hugo partial syntax"
-                        >
-                            📋 Copy
-                        </button>
-                    </div>
+                        </div>
                 </template>
             </div>
             
@@ -177,7 +170,7 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
             x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-            class="fixed bottom-4 right-4 bg-primary-blue text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 max-w-xs border-2 border-blue-400"
+            class="fixed bottom-4 right-4 bg-primary-blue text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 max-w-xs border-2 border-blue-400 z-50"
         >
             <div class="flex-shrink-0 bg-white rounded-md p-1">
                 <img 
@@ -196,7 +189,6 @@
 </div>
 
 <script>
-// Your Alpine.js code remains the same, as the request only specified a CSS/UI redesign.
 function iconBrowser() {
     return {
         icons: [],
@@ -234,19 +226,12 @@ function iconBrowser() {
         loadDarkMode() {
             // Check localStorage first
             const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             
-            if (savedTheme === 'dark') {
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
                 this.isDark = true;
-                document.documentElement.classList.add('dark');
-            } else if (savedTheme === 'light') {
-                this.isDark = false;
-                document.documentElement.classList.remove('dark');
             } else {
-                // Auto-detect system preference
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    this.isDark = true;
-                    document.documentElement.classList.add('dark');
-                }
+                this.isDark = false;
             }
         },
         
