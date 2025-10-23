@@ -1,23 +1,46 @@
-# Hicons
+# ♾️ Hicons
 
-**Hugo plugin to add [Lucide](https://lucide.dev/icons/) SVG icons without bloated layout templates.**
+**Hugo plugin to add [Lucide](https://lucide.dev/icons/) SVG icons automatically — no bloated template logic, no manual SVG copy-paste.**
 
-`hicons` scans your Hugo layouts for icon usage and automatically generates or updates a Hugo partial (`icons.html`) with SVGs from Lucide. This eliminates the need for manually writing huge `if-else` blocks for each icon.
+`hicons` scans your Hugo layouts for icon usage and auto-generates or updates your `icons.html` partial with SVGs from Lucide.
 
------
+🔥 **New Workflow:** Hicons now has a **dedicated website for layout-ready code**: [https://hicons.pages.dev](https://hicons.pages.dev)
 
-## Features
+---
 
-  - Auto-detect icons used in Hugo layouts.
-  - Pull SVGs from Lucide icons library.
-  - Merge with existing `icons.html` partial; preserves manually added icons.
-  - Supports `layouts/partials/icons.html` or `layouts/_partials/icons.html`.
-  - Creates `_partials/icons.html` if none exist.
-  - Adds Hugo `$classes` support for Tailwind or custom classes.
+## 🚀 Features
 
------
+* ⚡ Auto-detect icons used across Hugo layouts.
+* 🧠 Automatically fetch SVGs from Lucide.
+* 🧩 Merge icons into your `layouts/partials/icons.html` or `_partials/icons.html`.
+* 🛡 Keeps existing icons safe (no overwrite).
+* 🎨 Supports `$class` for Tailwind or custom CSS classes.
+* 👀 **New:** `--watch` mode for real-time updates.
+* 🌐 **Dedicated icon website:** search, click, copy layout-ready code instantly — no bloated template files.
 
-## Installation
+---
+
+## 🌐 Dedicated Icon Layout Website
+
+Forget going to Lucide to look for icons manually. Now:
+
+1. Visit [https://hicons.pages.dev](https://hicons.pages.dev)
+2. Search the icon you want (e.g., `mail`, `sparkles`)
+3. Click the icon or the 📋 **Copy** button
+4. Paste the ready-to-use Hugo layout code directly into your template
+5. Run `npx hicons` (or keep `--watch` running) — icons partial updates automatically
+
+### Example Copied Code:
+
+```go
+{{ partial "icons.html" (dict "name" "sparkles" "class" "w-6 h-6 text-pink-500") }}
+```
+
+✅ No manual SVG copy, no bloated `if-else` blocks, just clean Hugo-ready code.
+
+---
+
+## 💻 Installation
 
 ### Global install:
 
@@ -25,166 +48,132 @@
 npm install -g hicons
 ```
 
-### Or use with `npx`:
+### Or run instantly with `npx`:
 
 ```bash
 npx hicons
 ```
 
------
+---
 
-## How It Works
+## ⚙️ How It Works
 
-1.  `hicons` scans all your Hugo layout files:
+1. Scans all Hugo layout files:
 
-<!-- end list -->
+   ```
+   layouts/**/*.html
+   ```
+2. Finds icon partial calls:
 
-```go
-layouts/**/*.html
+   ```go
+   {{ partial "icons.html" (dict "name" "mail" "class" "w-6 h-6") }}
+   ```
+3. Extracts icon names (e.g., `mail`, `heart`, `sparkles`).
+4. Fetches SVGs from the Lucide library.
+5. Updates your Hugo partial (`icons.html`), merging new icons and keeping old ones intact.
+
+---
+
+## 🏃 Commands
+
+### ▶️ One-Time Run
+
+```bash
+npx hicons
 ```
 
-2.  Looks for partial calls like:
+Generates/updates `icons.html` once.
 
-<!-- end list -->
+---
 
-```go
-{{ partial "icons.html" (dict "name" "mail" "class" "w-6 h-6 text-sky-500") }}
+### 👀 Watch Mode (Live Updates)
+
+```bash
+npx hicons --watch
 ```
 
-3.  Extracts the icon `name` (e.g., `mail`) and fetches the SVG from Lucide.
-4.  Adds the SVG to your Hugo partial `icons.html` or `_partials/icons.html`.
-5.  Merges new icons while keeping existing icons intact.
+`hicons` will:
 
------
+* Watch all `layouts/**/*.html` files
+* Rebuild the partial whenever you add/modify icons
+* Merge new icons safely
+* Skip duplicates automatically
 
-## Finding Icons and Getting Code (New System\! 🚀)
+Perfect for development with `hugo server`.
 
-You **no longer need** to visit the official Lucide site to find icon names. Use the dedicated icons list for a better workflow:
+---
 
-1.  **Visit the Hicons Lucide Icons list website:**
-    [**hicons.pages.dev**](https://hicons.pages.dev)
-2.  **Search** for the icon you want.
-3.  **Click** the icon or the **📋 Copy** button.
-    *This automatically copies the **Hugo layout-ready code**.*
-4.  **Paste** the copied code directly into your Hugo layout.
-5.  **Run `npx hicons`** to generate the icon partial.
+## 🧩 Example Combined Workflow
 
-**Example Code You'll Copy:**
+Add this to your `package.json`:
 
-```go
-{{ partial "icons.html" (dict "name" "mail" "class" "w-6 h-6") }}
+```json
+{
+  "scripts": {
+    "dev": "npx hicons --watch & hugo server -D",
+    "build": "npx hicons && hugo --minify"
+  }
+}
 ```
 
------
+Run:
 
-## Using in Hugo Layouts
-
-1.  **Call the icon partial anywhere in your layout:**
-
-<!-- end list -->
-
-```go
-{{ partial "icons.html" (dict "name" "mail" "class" "w-6 h-6 text-sky-500") }}
+```bash
+npm run dev
 ```
 
-2.  **Parameters:**
+* Icons auto-refresh instantly while editing layouts
+* Hugo live server reloads automatically
 
-| Parameter | Description |
-| :--- | :--- |
-| `name` | The Lucide icon name (e.g., `mail`, `heart`, `award`) |
-| `class` | Optional CSS classes to style the SVG (Tailwind recommended) |
+---
 
-3.  **Example in layout:**
+## 🪄 Icon Styling
 
-<!-- end list -->
+All icons default to:
 
-```go
-<header>
-  {{ partial "icons.html" (dict "name" "mail" "class" "w-6 h-6 text-sky-500") }}
-  <h1>Contact Us</h1>
-</header>
-```
+* **24×24 size**
+* `stroke="currentColor"`
 
-This will output the Lucide `mail` icon SVG with your classes applied.
-
------
-
-## Icon Size, Stroke, and Classes
-
-  * All icons default to **24x24** and `stroke="currentColor"`.
-  * You can adjust size or color with Tailwind classes in `class`:
-
-<!-- end list -->
+You can fully customize with Tailwind or custom classes:
 
 ```go
 {{ partial "icons.html" (dict "name" "heart" "class" "w-8 h-8 text-red-500") }}
 ```
 
------
+---
 
-## Partial File Location
+## 📁 Partial File Location
 
 `hicons` supports:
 
-1.  `layouts/partials/icons.html`
-2.  `layouts/_partials/icons.html`
+1. `layouts/partials/icons.html`
+2. `layouts/_partials/icons.html`
 
-<!-- end list -->
+If neither exists, `hicons` will **automatically create `_partials/icons.html`**.
 
-  * If neither exists, it will **create `_partials/icons.html`** automatically.
-  * Running `hicons` multiple times **merges new icons** instead of overwriting existing ones.
+---
 
------
+## 🧠 Internals
 
-## Running `hicons`
+* Uses Lucide’s official SVG set
+* Keeps your existing partial intact
+* Merges icons safely
+* Prevents duplicates
+* Logs new and missing icons clearly
 
-### Basic run:
+---
 
-```bash
-npx hicons
-```
+## 🧪 Optional / Planned Flags
 
-  * Scans all layouts for new icons.
-  * Updates `icons.html` partial with missing icons.
+| Flag                  | Description                                         |
+| --------------------- | --------------------------------------------------- |
+| `--watch`             | Watch mode: auto-regenerate icons on layout changes |
+| `--quiet` *(planned)* | Suppress logs except errors                         |
+| `--clean` *(planned)* | Remove icons not used in layouts anymore            |
+| `--stats` *(planned)* | Show how many icons were added or removed           |
 
-### Global installation:
+---
 
-```bash
-npm install -g hicons
-hicons
-```
-
------
-
-## Example Layout Usage
-
-```go
-<section class="features">
-  <div class="feature">
-    {{ partial "icons.html" (dict "name" "award" "class" "w-6 h-6 text-yellow-400") }}
-    <h2>Top Achievement</h2>
-  </div>
-
-  <div class="feature">
-    {{ partial "icons.html" (dict "name" "sparkles" "class" "w-6 h-6 text-pink-500") }}
-    <h2>New Feature</h2>
-  </div>
-</section>
-```
-
-This will automatically pull `award` and `sparkles` SVGs from Lucide into your Hugo partial.
-
------
-
-## Notes
-
-  * **New Workflow:** The easiest way to get the correct icon code is now to visit [**hicons.pages.dev**](https://hicons.pages.dev), copy the layout code, paste it, and then run `npx hicons`.
-  * Always use the **Lucide “Component Name”** (in lowercase) for the `name` parameter.
-  * You can safely run `hicons` multiple times; it will **merge icons** instead of overwriting.
-  * Supports Tailwind, custom classes, and multiple partial paths.
-
------
-
-## License
+## 🪪 License
 
 MIT © [OLIMIAH](https://olimah.pages.dev)
