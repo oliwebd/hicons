@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucide Icons Browser - hicons</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {}
+        }
+      }
+    </script>
+    <style>
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .icon-card:hover .copy-btn {
+            opacity: 1;
+        }
+        .copy-btn {
+            opacity: 0;
+            transition: opacity 0.15s ease-in-out;
+        }
+        .icon-img {
+            filter: brightness(0) saturate(100%);
+        }
+        .dark .icon-img {
+            filter: brightness(0) saturate(100%) invert(85%);
+        }
+        .icon-card:hover .icon-img {
+            filter: brightness(0) saturate(100%) invert(45%) sepia(100%) saturate(5000%) hue-rotate(180deg);
+        }
+        .dark .icon-card:hover .icon-img {
+            filter: brightness(0) saturate(100%) invert(65%) sepia(100%) saturate(1000%) hue-rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 min-h-screen">
+
+<div class="max-w-7xl mx-auto p-6">
+  <!-- Header -->
+  <div class="mb-8 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-sky-600 to-blue-600 dark:from-sky-400 dark:to-blue-400 bg-clip-text text-transparent">Lucide Icons Browser</h1>
+        <p class="text-gray-600 dark:text-gray-400">Browse and copy Hugo partial syntax for <code class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm font-mono">hicons</code></p>
+      </div>
+      <button
+        @click="toggleDarkMode()"
+        class="px-4 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition shadow-md"
+        title="Toggle dark mode"
+        x-data="iconBrowser()"
+      >
+        <span x-show="!isDark" class="text-2xl">🌙</span>
+        <span x-show="isDark" class="text-2xl">☀️</span>
+      </button>
+    </div>
+  </div>
+
+  <div x-data="iconBrowser()" x-init="init()" class="space-y-6">
+    <!-- Search Bar -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+      <div class="relative">
+        <input
+          x-model="search"
+          type="text"
+          placeholder="Search by icon name or keywords (e.g. 'mail', 'arrow', 'user')..."
+          class="w-full p-4 pr-12 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-lg transition"
+        />
+        <button
+          x-show="search.length > 0"
+          @click="search = ''"
+          class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl"
+        >
+          ✕
+        </button>
+      </div>
+      
+      <!-- Popular Tags -->
+      <div class="mt-4 space-y-2">
+        <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Quick Search:</span>
+        <div class="flex flex-wrap gap-2">
+          <template x-for="tag in popularTags" :key="tag">
+            <button
+              @click="search = tag"
+              class="px-3 py-1.5 text-sm font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-sky-100 dark:hover:bg-sky-900 hover:text-sky-700 dark:hover:text-sky-300 transition shadow-sm"
+              x-text="tag"
+            ></button>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md border border-gray-200 dark:border-gray-700">
+      <div class="flex items-center justify-between text-sm">
+        <div class="text-gray-600 dark:text-gray-400">
+          Showing <span class="font-bold text-sky-600 dark:text-sky-400 text-lg" x-text="displayedIcons.length"></span> of <span class="font-semibold" x-text="filteredIcons.length"></span> results
+          <span x-show="filteredIcons.length !== icons.length" class="text-gray-500">
+            (from <span x-text="icons.length"></span> total icons)
+          </span>
+        </div>
+        <div x-show="search.length > 0" class="text-gray-500 dark:text-gray-500 font-medium">
+          Search: "<span class="font-semibold text-sky-600 dark:text-sky-400" x-text="search"></span>"
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div x-show="loading" class="text-center py-20">
+      <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-gray-300 dark:border-gray-600 border-t-sky-500"></div>
+      <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg">Loading icons from Lucide CDN...</p>
+    </div>
+
+    <!-- Icons Grid -->
+    <div x-show="!loading && displayedIcons.length > 0" class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <template x-for="icon in displayedIcons" :key="icon.name">
+          <div
+            class="icon-card group p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gradient-to-br hover:from-sky-50 hover:to-blue-50 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:shadow-xl hover:border-sky-400 dark:hover:border-sky-500 cursor-pointer flex flex-col items-center justify-center transition-all duration-200 ease-in-out relative bg-gray-50 dark:bg-gray-700"
+            @click="copyHugoPartial(icon.name)"
+            :title="`Click to copy ${icon.name}`"
+          >
+            <!-- Icon SVG from CDN -->
+            <div class="w-12 h-12 mb-3 flex items-center justify-center">
+              <img 
+                :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" 
+                :alt="icon.name"
+                class="icon-img w-full h-full transition-all duration-200"
+                loading="lazy"
+                @error="$event.target.style.display='none'"
+              />
+            </div>
+            
+            <!-- Icon Name -->
+            <span class="text-sm text-gray-700 dark:text-gray-300 font-semibold text-center break-all px-1 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition" x-text="icon.name"></span>
+
+            <!-- Copy Button -->
+            <button
+              class="copy-btn mt-3 px-3 py-1.5 text-xs font-bold bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white rounded-lg transition duration-150 ease-in-out shadow-md"
+              @click.stop="copyHugoPartial(icon.name)"
+              title="Copy Hugo partial syntax"
+            >
+              📋 Copy
+            </button>
+          </div>
+        </template>
+      </div>
+      
+      <!-- Show More Button -->
+      <div x-show="filteredIcons.length > displayLimit" class="mt-6 text-center">
+        <button
+          @click="displayLimit += 100"
+          class="px-6 py-3 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-semibold rounded-xl shadow-lg transition"
+        >
+          Load More Icons (<span x-text="Math.min(100, filteredIcons.length - displayLimit)"></span> more)
+        </button>
+      </div>
+    </div>
+
+    <!-- No Results -->
+    <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="text-center py-20 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+      <div class="text-6xl mb-4">🔍</div>
+      <p class="text-gray-500 dark:text-gray-400 text-xl font-semibold">
+        No icons found for "<span class="text-sky-600 dark:text-sky-400" x-text="search"></span>"
+      </p>
+      <p class="text-sm text-gray-400 dark:text-gray-500 mt-2">
+        Try searching by icon name or keywords like "arrow", "user", "mail", or "heart"
+      </p>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div
+    x-data="{ show: false, message: '', iconName: '' }"
+    @notify.window="
+      show = true;
+      message = $event.detail.message;
+      iconName = $event.detail.iconName;
+      setTimeout(() => show = false, 2500);
+    "
+  >
+    <div 
+      x-show="show"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+      x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+      x-transition:leave-end="opacity-0 translate-y-2 scale-95"
+      class="fixed bottom-6 right-6 bg-gradient-to-r from-sky-600 to-blue-600 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 max-w-sm border-2 border-sky-400"
+    >
+      <div class="flex-shrink-0 bg-white rounded-lg p-2">
+        <img 
+          :src="`/lucide/icons/${iconName}.svg`" 
+          class="w-6 h-6"
+          style="filter: brightness(0) saturate(100%);"
+        />
+      </div>
+      <div class="flex-1">
+        <div class="font-bold text-lg">Copied!</div>
+        <div class="text-sm opacity-90" x-text="message"></div>
+      </div>
+      <span class="text-3xl">✓</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function iconBrowser() {
+  return {
+    icons: [],
+    tagsData: {},
+    search: '',
+    loading: true,
+    isDark: false,
+    displayLimit: 100,
+    popularTags: ['arrow', 'user', 'mail', 'file', 'heart', 'star', 'home', 'settings', 'check', 'edit'],
+    
+    get filteredIcons() {
+      const query = this.search.toLowerCase().trim();
+      if (!query) return this.icons;
+      
+      return this.icons.filter(icon => {
+        // Search in icon name
+        if (icon.name.toLowerCase().includes(query)) return true;
+        
+        // Search in tags (keywords)
+        if (icon.tags && icon.tags.some(tag => tag.toLowerCase().includes(query))) return true;
+        
+        return false;
+      });
+    },
+    
+    get displayedIcons() {
+      return this.filteredIcons.slice(0, this.displayLimit);
+    },
+    
+    init() {
+      this.loadDarkMode();
+      this.loadIcons();
+    },
+    
+    loadDarkMode() {
+      // Check localStorage first
+      const savedTheme = localStorage.getItem('theme');
+      
+      if (savedTheme === 'dark') {
+        this.isDark = true;
+        document.documentElement.classList.add('dark');
+      } else if (savedTheme === 'light') {
+        this.isDark = false;
+        document.documentElement.classList.remove('dark');
+      } else {
+        // Auto-detect system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          this.isDark = true;
+          document.documentElement.classList.add('dark');
+        }
+      }
+    },
+    
+    async loadIcons() {
+      try {
+        // Load tags data from Lucide CDN
+        const tagsResponse = await fetch('https://unpkg.com/lucide-static@0.511.0/tags.json');
+        this.tagsData = await tagsResponse.json();
+        
+        // Create icons array with name and tags (but don't display tags in UI)
+        this.icons = Object.entries(this.tagsData).map(([name, tags]) => ({
+          name: name,
+          tags: tags || []
+        }));
+        
+        this.loading = false;
+        
+      } catch (error) {
+        console.error('Failed to load icons from Lucide CDN:', error);
+        this.loading = false;
+      }
+    },
+    
+    copyHugoPartial(iconName) {
+      const hugoCode = `{{ partial "icons.html" (dict "name" "${iconName}" "class" "w-6 h-6") }}`;
+      
+      navigator.clipboard.writeText(hugoCode).then(() => {
+        this.$dispatch('notify', { 
+          message: iconName,
+          iconName: iconName
+        });
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy to clipboard');
+      });
+    },
+    
+    toggleDarkMode() {
+      this.isDark = !this.isDark;
+      if (this.isDark) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "name": "hicons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Auto-sync Hugo icon partials from Lucide",
   "type": "module",
   "main": "src/index.js",

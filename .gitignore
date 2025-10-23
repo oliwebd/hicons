@@ -34,7 +34,6 @@ build/
 *.orig
 
 # Hugo cache / public
-/public/
 resources/_gen/
 
 # Mac / Linux trash
