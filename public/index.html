@@ -3,78 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucide Icons Lookup - hicons</title>
+    <title>Hugo Static Website SVG Icons || Easy Impoliment Lucide Icons in Hugo by Hicons</title>
     
-    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet"> 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        /* This simulates a custom color for a more beautiful UI */
+        .text-primary-blue { color: #3b82f6; } /* blue-500 */
+        .bg-primary-blue { background-color: #3b82f6; } /* blue-500 */
+        .focus\:ring-primary-blue { --tw-ring-color: #3b82f6; }
+        .hover\:border-primary-blue { border-color: #3b82f6; }
+    </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
 
-<div class="max-w-7xl mx-auto p-6 lg:p-10">
-    <div class="mb-8 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+<div class="max-w-7xl mx-auto p-4 sm:p-6"> <div class="mb-4 sm:mb-6 bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
         <div class="flex items-start justify-between">
-            <div>
-                <h1 class="text-4xl font-extrabold mb-2 text-primary-blue dark:text-blue-400">Lucide Icons Lookup</h1>
-                <p class="text-gray-600 dark:text-gray-400 text-lg">
-                    Find and copy Hugo partial code for <code class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm font-mono">hicons</code>
+            <div class="pr-2">
+                <h1 class="text-3xl sm:text-4xl font-extrabold mb-1 sm:mb-2 text-primary-blue dark:text-blue-400 leading-tight">Lucide Icons Lookup</h1>
+                <p class="text-gray-600 dark:text-gray-400 text-base sm:text-lg">
+                    Find and copy Hugo partial code for <code class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-xs sm:text-sm font-mono">hicons</code>
                 </p>
             </div>
             <button
                 @click="toggleDarkMode()"
-                class="ml-4 p-3 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition shadow-md"
+                class="flex-shrink-0 ml-2 p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition shadow-md"
                 title="Toggle dark mode"
                 x-data="iconBrowser()"
             >
-                <span x-show="!isDark" class="text-2xl">🌙</span>
-                <span x-show="isDark" class="text-2xl">☀️</span>
+                <span x-show="!isDark" class="text-xl">🌙</span>
+                <span x-show="isDark" class="text-xl">☀️</span>
             </button>
         </div>
 
-        <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
-            <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Installation & Quick Use</h2>
+        <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+            <h2 class="text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Installation & Quick Use</h2>
             
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <p class="font-medium mb-2 text-gray-700 dark:text-gray-300">1. Install `hicons` (once per project):</p>
-                    <pre class="code-block text-sm"><code>npx hicons</code></pre>
-                    <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">This creates your <code class="font-mono">icons.html</code> partial.</p>
+            <div class="grid md:grid-cols-2 gap-3 sm:gap-4"> 
+                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <p class="font-medium mb-1 text-gray-700 dark:text-gray-300 text-sm">1. Install `hicons`:</p>
+                    <pre class="code-block text-xs sm:text-sm overflow-x-auto rounded-md bg-gray-200 dark:bg-gray-900/70 p-2"><code>npx hicons</code></pre>
+                    <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">This creates your <code class="font-mono">icons.html</code> partial.</p>
                 </div>
                 
-                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <p class="font-medium mb-2 text-gray-700 dark:text-gray-300">2. Use an icon in Hugo (Copy below):</p>
-                    <pre class="code-block text-sm"><code>{{ partial "icons.html" (dict "name" "icon-name" "class" "w-6 h-6") }}</code></pre>
-                    <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Use the cards below to copy the specific code.</p>
+                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <p class="font-medium mb-1 text-gray-700 dark:text-gray-300 text-sm">2. Use an icon (Copy below):</p>
+                    <pre class="code-block text-xs sm:text-sm overflow-x-auto rounded-md bg-gray-200 dark:bg-gray-900/70 p-2"><code>{{ partial "icons.html" (dict "name" "icon-name" "class" "w-6 h-6") }}</code></pre>
+                    <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Use the cards below to copy the code.</p>
                 </div>
             </div>
         </div>
-
     </div>
-
-    <div x-data="iconBrowser()" x-init="init()" class="space-y-6">
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-100 dark:border-gray-700">
+    
+    <div x-data="iconBrowser()" x-init="init()" class="space-y-4 sm:space-y-5">
+        
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-100 dark:border-gray-700">
             <div class="relative">
                 <input
                     x-model="search"
                     type="text"
                     placeholder="Search icons (e.g. 'mail', 'arrow', 'user')..."
-                    class="w-full p-4 pr-12 rounded-xl border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-primary-blue focus:border-primary-blue outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-lg transition shadow-inner"
+                    class="w-full p-3 pr-10 rounded-lg border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-primary-blue focus:border-primary-blue outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-base transition shadow-inner"
                 />
                 <button
                     x-show="search.length > 0"
                     @click="search = ''"
-                    class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-lg"
                 >
                     ✕
                 </button>
             </div>
             
-            <div class="mt-4 space-y-2">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Quick Search:</span>
+            <div class="mt-3 space-y-1">
+                <span class="text-xs font-medium text-gray-600 dark:text-gray-400">Quick Search:</span>
                 <div class="flex flex-wrap gap-2">
                     <template x-for="tag in popularTags" :key="tag">
                         <button
                             @click="search = tag"
-                            class="px-3 py-1.5 text-sm font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-primary-blue dark:hover:text-blue-300 transition shadow-sm"
+                            class="px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-primary-blue dark:hover:text-blue-300 transition"
                             x-text="tag"
                         ></button>
                     </template>
@@ -82,34 +89,34 @@
             </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between text-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
                 <div class="text-gray-600 dark:text-gray-400">
-                    Showing <span class="font-bold text-primary-blue dark:text-blue-400 text-lg" x-text="displayedIcons.length"></span> of <span class="font-semibold" x-text="filteredIcons.length"></span> results
+                    Showing <span class="font-bold text-primary-blue dark:text-blue-400 text-base sm:text-lg" x-text="displayedIcons.length"></span> of <span class="font-semibold" x-text="filteredIcons.length"></span> results
                     <span x-show="filteredIcons.length !== icons.length" class="text-gray-500">
                         (from <span x-text="icons.length"></span> total icons)
                     </span>
                 </div>
-                <div x-show="search.length > 0" class="text-gray-500 dark:text-gray-500 font-medium">
+                <div x-show="search.length > 0" class="text-gray-500 dark:text-gray-500 font-medium hidden sm:block">
                     Search: "<span class="font-semibold text-primary-blue dark:text-blue-400" x-text="search"></span>"
                 </div>
             </div>
         </div>
 
-        <div x-show="loading" class="text-center py-20">
-            <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-gray-300 dark:border-gray-600 border-t-primary-blue"></div>
-            <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg">Loading icons from Lucide CDN...</p>
+        <div x-show="loading" class="text-center py-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-gray-300 dark:border-gray-600 border-t-primary-blue"></div>
+            <p class="mt-3 text-gray-500 dark:text-gray-400 text-base">Loading icons...</p>
         </div>
 
-        <div x-show="!loading && displayedIcons.length > 0" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-100 dark:border-gray-700">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div x-show="!loading && displayedIcons.length > 0" class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-xl border border-gray-100 dark:border-gray-700">
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3"> 
                 <template x-for="icon in displayedIcons" :key="icon.name">
                     <div
-                        class="icon-card group p-4 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-gray-700 hover:shadow-lg hover:border-primary-blue dark:hover:border-blue-500 cursor-pointer flex flex-col items-center justify-center transition-all duration-200 ease-in-out relative bg-gray-50 dark:bg-gray-900/50"
+                        class="icon-card group p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-gray-700 hover:shadow-md hover:border-primary-blue dark:hover:border-blue-500 cursor-pointer flex flex-col items-center justify-center transition-all duration-200 ease-in-out relative bg-gray-50 dark:bg-gray-900/50"
                         @click="copyHugoPartial(icon.name)"
                         :title="`Click to copy ${icon.name}`"
                     >
-                        <div class="w-12 h-12 mb-3 flex items-center justify-center">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 mb-2 flex items-center justify-center"> 
                             <img 
                                 :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" 
                                 :alt="icon.name"
@@ -119,10 +126,10 @@
                             />
                         </div>
                         
-                        <span class="text-sm text-gray-700 dark:text-gray-300 font-semibold text-center break-all px-1 group-hover:text-primary-blue dark:group-hover:text-blue-400 transition" x-text="icon.name"></span>
+                        <span class="text-xs text-gray-700 dark:text-gray-300 font-semibold text-center break-all px-0 group-hover:text-primary-blue dark:group-hover:text-blue-400 transition" x-text="icon.name"></span>
 
                         <button
-                            class="copy-btn mt-3 px-3 py-1.5 text-xs font-bold bg-primary-blue hover:bg-blue-600 text-white rounded-lg transition duration-150 ease-in-out shadow-md"
+                            class="copy-btn mt-1.5 px-2 py-1 text-xs font-bold bg-primary-blue hover:bg-blue-600 text-white rounded-md transition duration-150 ease-in-out shadow-sm"
                             @click.stop="copyHugoPartial(icon.name)"
                             title="Copy Hugo partial syntax"
                         >
@@ -132,22 +139,22 @@
                 </template>
             </div>
             
-            <div x-show="filteredIcons.length > displayLimit" class="mt-6 text-center">
+            <div x-show="filteredIcons.length > displayLimit" class="mt-4 text-center">
                 <button
                     @click="displayLimit += 100"
-                    class="px-6 py-3 bg-primary-blue hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg transition"
+                    class="px-4 py-2 bg-primary-blue hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition text-sm"
                 >
                     Load More Icons (<span x-text="Math.min(100, filteredIcons.length - displayLimit)"></span> more)
                 </button>
             </div>
         </div>
 
-        <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="text-center py-20 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-            <div class="text-6xl mb-4">🔍</div>
-            <p class="text-gray-500 dark:text-gray-400 text-xl font-semibold">
+        <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="text-center py-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <div class="text-4xl mb-2">🔍</div>
+            <p class="text-gray-500 dark:text-gray-400 text-base font-semibold">
                 No icons found for "<span class="text-primary-blue dark:text-blue-400" x-text="search"></span>"
             </p>
-            <p class="text-sm text-gray-400 dark:text-gray-500 mt-2">
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
                 Try searching by icon name or keywords like "arrow", "user", "mail", or "heart"
             </p>
         </div>
@@ -170,25 +177,26 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
             x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-            class="fixed bottom-6 right-6 bg-primary-blue text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 max-w-sm border-2 border-blue-400"
+            class="fixed bottom-4 right-4 bg-primary-blue text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 max-w-xs border-2 border-blue-400"
         >
-            <div class="flex-shrink-0 bg-white rounded-lg p-2">
+            <div class="flex-shrink-0 bg-white rounded-md p-1">
                 <img 
                     :src="`https://unpkg.com/lucide-static@0.511.0/icons/${iconName}.svg`" 
-                    class="w-6 h-6"
+                    class="w-5 h-5"
                     style="filter: brightness(0) saturate(100%);"
                 />
             </div>
             <div class="flex-1">
-                <div class="font-bold text-lg">Copied!</div>
-                <div class="text-sm opacity-90" x-text="message"></div>
+                <div class="font-bold text-base">Copied!</div>
+                <div class="text-xs opacity-90" x-text="message"></div>
             </div>
-            <span class="text-3xl">✓</span>
+            <span class="text-2xl">✓</span>
         </div>
     </div>
 </div>
 
 <script>
+// Your Alpine.js code remains the same, as the request only specified a CSS/UI redesign.
 function iconBrowser() {
     return {
         icons: [],
