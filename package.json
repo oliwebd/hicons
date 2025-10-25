@@ -1,7 +1,7 @@
 {
   "name": "hicons",
-  "version": "1.0.1",
-  "description": "Auto-sync Hugo icon partials from Lucide",
+  "version": "1.0.4",
+  "description": "Hugo Icons plugin for easy-to-use SVG icons from open-source vendors Lucide and Feather — no bloated layouts",
   "type": "module",
   "main": "src/cli.js",
   "bin": {
@@ -12,21 +12,22 @@
   },
   "dependencies": {
     "chokidar": "^4.0.3",
-    "fs-extra": "^11.1.1",
     "glob": "^10.3.3",
-    "lucide": "^0.274.0"
-  },
+   },
   "keywords": [
     "hugo",
+    "hugo-plugin",
     "icons",
     "lucide",
     "svg",
+    "feather",
     "partial"
   ],
   "author": "oliwebd",
   "license": "MIT",
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.15",
+    "svgo": "^4.0.0",
     "tailwindcss": "^4.1.15"
   }
 }

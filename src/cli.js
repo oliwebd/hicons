@@ -1,44 +1,38 @@
 #!/usr/bin/env node
 import { promises as fs } from "fs";
-import { join, dirname, resolve } from "path";
+import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import chokidar from "chokidar";
-import glob from "glob";
-import { icons } from "lucide";
+import { glob } from "glob";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // ===== CONFIG =====
 const WATCH_GLOB = "layouts/**/*.html";
-const DEBOUNCE_MS = 800; // delay rebuild if multiple files change quickly
+const DEBOUNCE_MS = 800;
+const ICONS_FOLDER = join(__dirname, "../icons/minified"); // <- updated path
 
 // ===== CORE FUNCTION =====
 async function generateIcons() {
   // Determine partial path
-  let PARTIAL_PATH = "";
+  let PARTIAL_PATH = join("layouts", "_partials", "icons.html");
   if (await exists(join("layouts", "partials", "icons.html"))) {
     PARTIAL_PATH = join("layouts", "partials", "icons.html");
-  } else if (await exists(join("layouts", "_partials", "icons.html"))) {
-    PARTIAL_PATH = join("layouts", "_partials", "icons.html");
-  } else {
-    PARTIAL_PATH = join("layouts", "_partials", "icons.html");
   }
 
   // Read existing partial
   let existingContent = "";
   let existingIcons = new Set();
-
   if (await exists(PARTIAL_PATH)) {
     existingContent = await fs.readFile(PARTIAL_PATH, "utf-8");
     const matches = existingContent.matchAll(/{{ else if eq \$icon "([\w-]+)"/g);
     for (const m of matches) existingIcons.add(m[1]);
   }
 
-  // Scan Hugo layouts
+  // Scan Hugo layouts for icon usage
   const files = glob.sync(WATCH_GLOB);
   const iconNames = new Set();
-
   for (const file of files) {
     const content = await fs.readFile(file, "utf-8");
     const matches = content.matchAll(/{{\s*partial\s+"icons\.html"\s+\(dict\s+"name"\s+"([\w-]+)"/g);
@@ -47,24 +41,29 @@ async function generateIcons() {
 
   // Filter new icons
   const newIcons = [...iconNames].filter(name => !existingIcons.has(name));
-
   if (newIcons.length === 0) {
     console.log("✅ No new icons to add. Partial is up to date.");
     return;
   }
 
-  // Generate new icons content
+  // Generate new icons content from local minified SVGs
   let newContent = "";
   for (const name of newIcons) {
-    const icon = icons[name];
-    if (!icon) {
-      console.warn(`⚠ Icon not found in Lucide: ${name}`);
+    const svgPath = join(ICONS_FOLDER, `${name}.svg`);
+    if (!(await exists(svgPath))) {
+      console.warn(`⚠ Icon not found in minified folder: ${name}`);
       continue;
     }
-    const svg = icon.toSvg({ width: 24, height: 24, stroke: "currentColor" });
-    newContent += `
-{{ else if eq $icon "${name}" }}
-${svg.replace(/<svg/, '<svg class="{{ $classes }}" aria-hidden="true"')}
+    let svg = await fs.readFile(svgPath, "utf-8");
+
+    // Inject classes + aria-hidden
+    svg = svg.replace(
+      /<svg([^>]*)>/,
+      '<svg$1 class="{{ $classes }}" aria-hidden="true">'
+    );
+
+    newContent += `{{ else if eq $icon "${name}" }}
+${svg}
 `;
   }
 
@@ -87,7 +86,6 @@ function watchMode() {
   let timer;
 
   const watcher = chokidar.watch(WATCH_GLOB, { ignoreInitial: false });
-
   const trigger = async (event, path) => {
     clearTimeout(timer);
     timer = setTimeout(async () => {

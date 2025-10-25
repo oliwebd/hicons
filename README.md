@@ -1,34 +1,36 @@
-# ♾️ Hicons
+# ♾️ Hicons for Hugo SVG icons Support 
 
-**Hugo plugin to add [Lucide](https://lucide.dev/icons/) SVG icons automatically — no bloated template logic, no manual SVG copy-paste.**
+***Hugo Icons plugin for easy-to-use SVG icons from open-source vendors Lucide and Feather — no bloated layouts***
 
-`hicons` scans your Hugo layouts for icon usage and auto-generates or updates your `icons.html` partial with SVGs from Lucide.
+`hicons` scans your Hugo layouts for icon usage and automatically generates or updates your `icons.html` partial with SVGs from Lucide.
 
-🔥 **New Workflow:** Hicons now has a **dedicated website for layout-ready code**: [https://hicons.pages.dev](https://hicons.pages.dev)
+🔥 **New Workflow:** Hicons now has a **dedicated website for Hugo layout-ready code**: [https://hicons.pages.dev](https://hicons.pages.dev)
 
 ---
 
 ## 🚀 Features
 
 * ⚡ Auto-detect icons used across Hugo layouts.
-* 🧠 Automatically fetch SVGs from Lucide.
+* 🧠 Automatically add minified SVGs to your Hugo partials.
 * 🧩 Merge icons into your `layouts/partials/icons.html` or `_partials/icons.html`.
-* 🛡 Keeps existing icons safe (no overwrite).
+* 🛡 Keeps existing icons safe (no overwrites).
 * 🎨 Supports `$class` for Tailwind or custom CSS classes.
-* 👀 **New:** `--watch` mode for real-time updates.
-* 🌐 **Dedicated icon website:** search, click, copy layout-ready code instantly — no bloated template files.
+* 👀 **New:** `npx hicons --watch & hugo server -D` can be added to dev scripts for live updates.
+* 🌐 **Dedicated icon website:** search, click, and copy layout-ready code instantly.
 
 ---
 
-## 🌐 Dedicated Icon Layout Website
+## 🌐 Dedicated Hicons Icon Layout Website
 
-Forget going to Lucide to look for icons manually. Now:
+Forget manually browsing Lucide for SVG icon code. Copying raw SVGs bloats your layouts and may hurt Core Web Vitals. Hicons does it all for you — minified and production-ready.
+
+Steps:
 
 1. Visit [https://hicons.pages.dev](https://hicons.pages.dev)
 2. Search the icon you want (e.g., `mail`, `sparkles`)
 3. Click the icon or the 📋 **Copy** button
-4. Paste the ready-to-use Hugo layout code directly into your template
-5. Run `npx hicons` (or keep `--watch` running) — icons partial updates automatically
+4. Paste the ready-to-use Hugo layout code directly into your layout template
+5. Run `npx hicons` (or `--watch` mode) — your Hugo icons partial updates automatically
 
 ### Example Copied Code:
 
@@ -36,7 +38,7 @@ Forget going to Lucide to look for icons manually. Now:
 {{ partial "icons.html" (dict "name" "sparkles" "class" "w-6 h-6 text-pink-500") }}
 ```
 
-✅ No manual SVG copy, no bloated `if-else` blocks, just clean Hugo-ready code.
+✅ No manual SVG copy. No bloated `if-else` blocks. Just clean, Hugo-ready code.
 
 ---
 
@@ -70,7 +72,7 @@ npx hicons
    ```
 3. Extracts icon names (e.g., `mail`, `heart`, `sparkles`).
 4. Fetches SVGs from the Lucide library.
-5. Updates your Hugo partial (`icons.html`), merging new icons and keeping old ones intact.
+5. Updates your Hugo partial (`icons.html`), merging new icons while keeping old ones intact.
 
 ---
 
@@ -86,16 +88,22 @@ Generates/updates `icons.html` once.
 
 ---
 
-### 👀 Watch Mode (Live Updates)
+### 👀 Watch/Dev Mode
 
 ```bash
 npx hicons --watch
 ```
 
+Or with Hugo dev server:
+
+```bash
+npx hicons --watch & hugo server -D
+```
+
 `hicons` will:
 
 * Watch all `layouts/**/*.html` files
-* Rebuild the partial whenever you add/modify icons
+* Rebuild the partial whenever icons are added or modified
 * Merge new icons safely
 * Skip duplicates automatically
 
@@ -168,8 +176,8 @@ If neither exists, `hicons` will **automatically create `_partials/icons.html`**
 | Flag                  | Description                                         |
 | --------------------- | --------------------------------------------------- |
 | `--watch`             | Watch mode: auto-regenerate icons on layout changes |
-| `--quiet` *(planned)* | Suppress logs except errors                         |
-| `--clean` *(planned)* | Remove icons not used in layouts anymore            |
+| `--quiet` *(planned)* | Suppress logs except for errors                     |
+| `--clean` *(planned)* | Remove icons no longer used in layouts              |
 | `--stats` *(planned)* | Show how many icons were added or removed           |
 
 ---
