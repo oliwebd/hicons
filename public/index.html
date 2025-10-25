@@ -6,7 +6,7 @@
     <meta name="description" content="Browse and copy 1000+ beautiful Lucide icons for Hugo static websites. Fast, mobile-friendly icon lookup with instant code copying.">
     <meta name="keywords" content="lucide icons, hugo icons, svg icons, web icons, icon browser, hicons">
     <meta name="theme-color" content="#3b82f6">
-    <title>Lucide Icons Browser - 1000+ Beautiful SVG Icons for Hugo | Hicons</title>
+    <title>1000+ Beautiful SVG Icons for Hugo Static Website from Lucide Icons | Hicons</title>
     
     <link href="/css/main.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -21,15 +21,13 @@
         }
         
         .glass-effect {
-            /* Kept light mode as is */
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(229, 231, 235, 0.5);
         }
         
         .dark .glass-effect {
-            /* Adjusted dark glass background to be slightly more transparent for the subtle background gradient to show */
-            background: rgba(31, 41, 55, 0.9); /* Changed from 0.95 to 0.9 for better dark mode feel */
+            background: rgba(31, 41, 55, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(75, 85, 99, 0.5);
         }
@@ -69,20 +67,23 @@
         img { image-rendering: -webkit-optimize-contrast; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen transition-colors duration-500 text-gray-900 dark:text-gray-100">
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen transition-colors duration-500">
 
 <div class="max-w-[1600px] mx-auto px-3 sm:px-6 py-4 sm:py-8">
     
+    <!-- Hero Header -->
     <header class="mb-6 sm:mb-8">
         <div class="glass-effect rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl gradient-bg flex items-center justify-center shadow-lg animate-float">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 sm:w-8 sm:h-8 text-white"><path d="M6 16c5 0 7-8 12-8a4 4 0 0 1 0 8c-5 0-7-8-12-8a4 4 0 1 0 0 8"/></svg>
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
                     </div>
                     <div>
-                        <h1 class="text-2xl sm:text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent leading-tight">
-                            Lucide Icons
+                        <h1 class="text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent leading-tight">
+                            Hicons (Lucide Icons for Hugo)
                         </h1>
                         <p class="text-xs sm:text-base text-gray-600 dark:text-gray-400 mt-0.5 sm:mt-1">1000+ Beautiful Icons for Hugo</p>
                     </div>
@@ -98,11 +99,13 @@
                 </button>
             </div>
 
+            <!-- Main Use -->
             <div class="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl sm:rounded-2xl p-3 sm:p-5 text-white shadow-xl mb-3 sm:mb-4 text-center">
                 <p class="text-sm sm:text-lg font-bold mb-1">🎯 Search → Click Icon → Code Copied → Paste in Hugo Layout → Run <code class="bg-white/30 px-2 py-0.5 rounded">npx hicons</code></p>
-                <p class="text-xs sm:text-sm opacity-90">No manual SVG downloads. Auto-generates your icons.html partial. <a href="https://github.com/oliwebd/hicons/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline font-semibold">Full Documentation →</a></p>
+                <p class="text-xs sm:text-sm opacity-90">No manual SVG downloads. Auto-generates your icons.html partial. <a href="https://github.com/oliwebd/hicons/" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline font-semibold">Full Documentation →</a></p>
             </div>
 
+            <!-- Quick Start Guide -->
             <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
                 <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3 sm:p-4 text-white shadow-lg">
                     <div class="flex items-center gap-2 mb-2">
@@ -123,6 +126,7 @@
         </div>
     </header>
 
+    <!-- Search Section -->
     <div class="glass-effect rounded-2xl p-3 sm:p-6 shadow-xl mb-4 sm:mb-6">
         <div class="relative mb-3 sm:mb-4">
             <div class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
@@ -141,10 +145,11 @@
                 @click="search = ''"
                 class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center justify-center transition"
             >
-                <span class="text-xs sm:text-sm text-gray-700 dark:text-gray-300">✕</span>
+                <span class="text-xs sm:text-sm">✕</span>
             </button>
         </div>
         
+        <!-- Popular Tags -->
         <div class="flex flex-wrap gap-1.5 sm:gap-2">
             <template x-for="tag in popularTags" :key="tag">
                 <button
@@ -156,13 +161,14 @@
         </div>
     </div>
 
+    <!-- Results Counter -->
     <div class="glass-effect rounded-xl p-2 sm:p-4 shadow-lg mb-3 sm:mb-4">
         <div class="flex items-center justify-between text-xs sm:text-sm">
             <div class="flex items-center gap-2">
                 <span class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" x-text="displayedIcons.length"></span>
                 <span class="text-gray-600 dark:text-gray-400">
                     <span class="hidden sm:inline">icons</span>
-                    <span x-show="search.length > 0" class="text-gray-500 dark:text-gray-400"> for "<span class="font-semibold text-blue-600 dark:text-blue-400" x-text="search"></span>"</span>
+                    <span x-show="search.length > 0" class="text-gray-500"> for "<span class="font-semibold text-blue-600 dark:text-blue-400" x-text="search"></span>"</span>
                 </span>
             </div>
             <button
@@ -175,12 +181,15 @@
         </div>
     </div>
 
+    <!-- Loading State -->
     <div x-show="loading" class="glass-effect rounded-2xl p-12 sm:p-20 shadow-xl text-center">
         <div class="inline-block animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-gray-200 dark:border-gray-700 border-t-blue-500 mb-4"></div>
         <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">Loading beautiful icons...</p>
     </div>
 
+    <!-- Icons Grid -->
     <div x-show="!loading && displayedIcons.length > 0" class="glass-effect rounded-2xl p-2 sm:p-6 shadow-2xl">
+        <!-- Mobile: 5 columns, Desktop: 10 columns -->
         <div class="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1.5 sm:gap-3">
             <template x-for="icon in displayedIcons" :key="icon.name">
                 <div
@@ -190,7 +199,7 @@
                 >
                     <div class="w-full h-full flex items-center justify-center">
                         <img 
-                            :src="`/icons/minified/${icon.name}.svg`" 
+                            :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" 
                             :alt="icon.name"
                             class="w-6 h-6 sm:w-8 sm:h-8 transition-all duration-200 dark:invert dark:brightness-100 group-hover:brightness-0 group-hover:invert"
                             loading="lazy"
@@ -199,11 +208,13 @@
                         />
                     </div>
                     
+                    <!-- Name hidden on mobile -->
                     <span class="icon-name text-[9px] sm:text-xs text-gray-700 dark:text-gray-300 font-medium text-center truncate w-full px-1 mt-1 sm:mt-2 group-hover:text-white transition" x-text="icon.name"></span>
                 </div>
             </template>
         </div>
         
+        <!-- Load More Button -->
         <div x-show="filteredIcons.length > displayLimit" class="mt-4 sm:mt-6 text-center">
             <button
                 @click="displayLimit += 100"
@@ -214,6 +225,7 @@
         </div>
     </div>
 
+    <!-- No Results -->
     <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="glass-effect rounded-2xl p-12 sm:p-20 shadow-xl text-center">
         <div class="text-5xl sm:text-6xl mb-4 animate-bounce">🔍</div>
         <p class="text-gray-700 dark:text-gray-300 text-base sm:text-lg font-bold mb-2">
@@ -225,6 +237,7 @@
     </div>
 </div>
 
+<!-- Toast Notification -->
 <div
     x-data="{ show: false, message: '', iconName: '' }"
     @notify.window="
@@ -246,7 +259,7 @@
     >
         <div class="flex-shrink-0 bg-white rounded-lg p-2">
             <img 
-                :src="`/icons/minified/${iconName}.svg`" 
+                :src="`/lucide/icons/${iconName}.svg`" 
                 class="w-6 h-6"
                 width="24"
                 height="24"
