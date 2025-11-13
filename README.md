@@ -1,10 +1,10 @@
-# ♾️ Hicons for Hugo SVG icons Support 
+# ♾️ Hicons for Hugo SVG Icons Support
 
-***Hugo Icons plugin for easy-to-use SVG icons from open-source vendors Lucide and Feather — no bloated layouts***
+***Hugo Icons plugin for easy-to-use SVG icons from open-source vendors Lucide and Feather — no bloated layouts.***
 
 `hicons` scans your Hugo layouts for icon usage and automatically generates or updates your `icons.html` partial with SVGs from Lucide.
 
-🔥 **New Workflow:** Hicons now has a **dedicated website for Hugo layout-ready code**: [https://hicons.pages.dev](https://hicons.pages.dev)
+🔥 **New Workflow:** Hicons now has a **minimal, night-mode friendly website** for Hugo layout-ready code: [https://hicons.pages.dev](https://hicons.pages.dev)
 
 ---
 
@@ -22,23 +22,23 @@
 
 ## 🌐 Dedicated Hicons Icon Layout Website
 
-Forget manually browsing Lucide for SVG icon code. Copying raw SVGs bloats your layouts and may hurt Core Web Vitals. Hicons does it all for you — minified and production-ready.
+The refreshed Hicons website embraces a calmer, more minimal interface with full light and dark mode support. Search is instant, copy feedback is clear, and the layout stays focused on the icons you need.
 
 Steps:
 
 1. Visit [https://hicons.pages.dev](https://hicons.pages.dev)
-2. Search the icon you want (e.g., `mail`, `sparkles`)
-3. Click the icon or the 📋 **Copy** button
-4. Paste the ready-to-use Hugo layout code directly into your layout template
+2. Use the search bar or the curated tag chips to filter icons (night mode is stored locally between visits)
+3. Click any icon tile to copy the Hugo-ready partial call instantly
+4. Paste the code into your Hugo layout template
 5. Run `npx hicons` (or `--watch` mode) — your Hugo icons partial updates automatically
 
-### Example Copied Code:
+### Example Copied Code
 
 ```go
 {{ partial "icons.html" (dict "name" "sparkles" "class" "w-6 h-6 text-pink-500") }}
 ```
 
-✅ No manual SVG copy. No bloated `if-else` blocks. Just clean, Hugo-ready code.
+✅ No manual SVG copy. No bloated `if-else` blocks. Just clean, Hugo-ready code — now in a distraction-free UI.
 
 ---
 
@@ -168,6 +168,7 @@ If neither exists, `hicons` will **automatically create `_partials/icons.html`**
 * Merges icons safely
 * Prevents duplicates
 * Logs new and missing icons clearly
+* Persists light/dark preference locally for a consistent browsing experience
 
 ---
 
