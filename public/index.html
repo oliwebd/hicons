@@ -14,23 +14,67 @@
 
     <link href="/css/main.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            color-scheme: light dark;
+        }
+
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .glass-effect {
+            background-color: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            backdrop-filter: blur(12px);
+        }
+
+        .dark .glass-effect {
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
+        .icon-card {
+            aspect-ratio: 1;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .search-glow:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+
+        /* Hide icon names on mobile */
+        @media (max-width: 640px) {
+            .icon-name { display: none; }
+        }
+
+        /* Optimize image loading */
+        img { image-rendering: -webkit-optimize-contrast; }
+    </style>
 </head>
-<body class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-[Inter_Tight,_sans-serif]">
+<body class="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
 
 <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-10">
 
     <!-- Hero Header -->
     <header class="space-y-4 sm:space-y-6">
-        <div class="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/70 backdrop-blur-md shadow-sm">
-            <div class="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+        <div class="glass-effect rounded-3xl p-5 sm:p-8 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 text-slate-50 dark:bg-slate-100 dark:text-slate-900 shadow-sm sm:h-14 sm:w-14">
-                        <svg class="h-6 w-6 sm:h-8 sm:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-900 dark:bg-slate-100 text-slate-100 dark:text-slate-900 flex items-center justify-center shadow-sm">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-xl font-semibold tracking-tight sm:text-2xl">
+                        <h1 class="text-xl sm:text-2xl font-semibold tracking-tight">
                             Hicons · Lucide Icons for Hugo
                         </h1>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Search and copy 1500+ minimal SVG icons optimised for Hugo.</p>
@@ -39,7 +83,7 @@
 
                 <button
                     @click="toggleDarkMode()"
-                    class="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200/80 bg-white/80 text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:bg-slate-800"
+                    class="w-11 h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 transition hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center"
                     aria-label="Toggle dark mode"
                 >
                     <span x-show="!isDark" class="text-lg">🌙</span>
@@ -47,32 +91,23 @@
                 </button>
             </div>
 
-            <div class="grid gap-4 border-t border-slate-200/60 px-5 pb-5 pt-4 sm:grid-cols-[1fr_auto] sm:items-center sm:px-8 sm:pb-8 sm:pt-6 dark:border-slate-800/60">
+            <div class="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
                 <div class="space-y-2">
-                    <p class="text-base font-medium text-slate-700 dark:text-slate-300 sm:text-lg">
-                        Search, click, paste. The Hugo partial is ready once you run
-                        <code class="inline-block rounded-lg bg-slate-100 px-2 py-1 font-mono text-sm text-slate-800 dark:bg-slate-800 dark:text-slate-100">npx hicons</code>.
+                    <p class="text-base sm:text-lg font-medium text-slate-700 dark:text-slate-300">
+                        Search, click, paste. The Hugo partial is ready once you run <code class="px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800">npx hicons</code>.
                     </p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">
-                        No manual SVG downloads. View
-                        <a href="https://github.com/oliwebd/hicons/" target="_blank" rel="noopener noreferrer" class="underline decoration-slate-300 underline-offset-4 hover:text-slate-700 dark:decoration-slate-600 dark:hover:text-slate-200">full documentation</a>
-                        for the CLI.
+                        No manual SVG downloads. View <a href="https://github.com/oliwebd/hicons/" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-700 dark:hover:text-slate-200">full documentation</a> for the CLI.
                     </p>
                 </div>
-                <div class="rounded-lg border border-slate-200/70 bg-white/70 p-4 shadow-sm backdrop-blur-md dark:border-slate-800/70 dark:bg-slate-900/60">
-                    <div class="space-y-2">
-                        <div>
-                            <p class="text-xs uppercase tracking-widest text-slate-400">Install</p>
-                            <div class="mt-1 overflow-x-auto">
-                                <code class="block whitespace-nowrap font-mono text-sm text-slate-800 dark:text-slate-100">npx hicons</code>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="text-xs uppercase tracking-widest text-slate-400">Copy Format</p>
-                            <div class="mt-1 overflow-x-auto">
-                                <code class="block whitespace-nowrap font-mono text-xs text-slate-800 dark:text-slate-100">{{ partial "icons.html" (dict "name" "sparkles" "class" "w-6 h-6") }}</code>
-                            </div>
-                        </div>
+                <div class="glass-effect rounded-2xl p-4 flex flex-col gap-2 border border-slate-200 dark:border-slate-800">
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-slate-400">Install</p>
+                        <code class="mt-1 block text-sm font-mono">npx hicons</code>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-slate-400">Copy Format</p>
+                        <code class="mt-1 block text-xs font-mono truncate">{{ partial "icons.html" (dict "name" "sparkles" "class" "w-6 h-6") }}</code>
                     </div>
                 </div>
             </div>
@@ -80,7 +115,7 @@
     </header>
 
     <!-- Search Section -->
-    <div class="rounded-xl border border-slate-200/80 bg-white/80 p-4 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/70 sm:p-6">
+    <div class="glass-effect rounded-3xl p-4 sm:p-6 shadow-sm">
         <div class="relative mb-3 sm:mb-4">
             <div class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 sm:left-4">
                 <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,12 +126,12 @@
                 x-model="search"
                 type="text"
                 placeholder="Search 1000+ icons..."
-                class="w-full rounded-xl border border-slate-200/80 bg-white/90 py-3 pl-11 pr-12 text-sm text-slate-900 shadow-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:py-4 sm:pl-12 sm:text-base"
+                class="w-full pl-11 sm:pl-12 pr-12 py-3 sm:py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-blue-500 dark:focus:border-blue-400 outline-none bg-white/90 dark:bg-slate-900/80 text-gray-900 dark:text-gray-100 text-sm sm:text-base transition search-glow"
             />
             <button
                 x-show="search.length > 0"
                 @click="search = ''"
-                class="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-slate-200/80 text-slate-600 transition hover:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700/80 dark:text-slate-200 dark:hover:bg-slate-600 dark:focus:ring-blue-400 sm:right-4 sm:h-8 sm:w-8"
+                class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center transition"
             >
                 <span class="text-xs sm:text-sm">✕</span>
             </button>
@@ -107,7 +142,7 @@
             <template x-for="tag in popularTags" :key="tag">
                 <button
                     @click="search = tag"
-                    class="rounded-full border border-slate-200/80 bg-slate-100/80 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700/80 dark:bg-slate-800/70 dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:ring-blue-400"
+                    class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition border border-slate-200 dark:border-slate-700"
                     x-text="tag"
                 ></button>
             </template>
@@ -115,10 +150,10 @@
     </div>
 
     <!-- Results Counter -->
-    <div class="rounded-xl border border-slate-200/80 bg-white/80 p-3 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/70 sm:p-4">
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+    <div class="glass-effect rounded-3xl p-3 sm:p-4 shadow-sm">
+        <div class="flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             <div class="flex items-center gap-2">
-                <span class="text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl" x-text="displayedIcons.length"></span>
+                <span class="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-slate-100" x-text="displayedIcons.length"></span>
                 <span>
                     <span class="hidden sm:inline">icons</span>
                     <span x-show="search.length > 0" class="text-slate-400"> for "<span class="font-semibold text-slate-600 dark:text-slate-200" x-text="search"></span>"</span>
@@ -127,7 +162,7 @@
             <button
                 @click="displayLimit = filteredIcons.length"
                 x-show="filteredIcons.length > displayLimit"
-                class="font-medium text-blue-600 transition hover:underline dark:text-blue-400"
+                class="text-blue-600 dark:text-blue-400 font-medium hover:underline"
             >
                 Show all
             </button>
@@ -135,23 +170,24 @@
     </div>
 
     <!-- Loading State -->
-    <div x-show="loading" class="rounded-xl border border-slate-200/80 bg-white/80 p-12 text-center shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/70 sm:p-16">
-        <div class="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-blue-500 dark:border-slate-700 sm:h-14 sm:w-14"></div>
-        <p class="text-sm font-medium text-slate-500 dark:text-slate-300 sm:text-base">Loading icons…</p>
+    <div x-show="loading" class="glass-effect rounded-3xl p-12 sm:p-16 shadow-sm text-center">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 sm:h-14 sm:w-14 border-4 border-slate-200 dark:border-slate-700 border-t-blue-500 mb-4"></div>
+        <p class="text-slate-500 dark:text-slate-300 text-sm sm:text-base font-medium">Loading icons…</p>
     </div>
 
     <!-- Icons Grid -->
-    <div x-show="!loading && displayedIcons.length > 0" class="rounded-xl border border-slate-200/80 bg-white/80 p-3 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/70 sm:p-6">
-        <div class="grid grid-cols-5 gap-2 sm:grid-cols-6 sm:gap-3 md:grid-cols-8 lg:grid-cols-10">
+    <div x-show="!loading && displayedIcons.length > 0" class="glass-effect rounded-3xl p-3 sm:p-6 shadow-sm">
+        <!-- Mobile: 5 columns, Desktop: 10 columns -->
+        <div class="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2 sm:gap-3">
             <template x-for="icon in displayedIcons" :key="icon.name">
                 <div
-                    class="group aspect-square flex cursor-pointer flex-col items-center justify-center rounded-lg border border-slate-200/80 bg-white/90 p-2 text-slate-700 shadow-sm transition hover:-translate-y-1 hover:border-blue-400 hover:shadow-md dark:border-slate-800/80 dark:bg-slate-900/80 dark:text-slate-200 sm:p-3"
+                    class="icon-card group p-2 sm:p-3 rounded-xl bg-white/90 dark:bg-slate-900/80 cursor-pointer flex flex-col items-center justify-center shadow-sm hover:shadow-md border border-slate-200 dark:border-slate-800 hover:border-blue-400"
                     @click="copyHugoPartial(icon.name)"
                     :title="icon.name"
                 >
-                    <div class="flex h-full w-full items-center justify-center">
+                    <div class="w-full h-full flex items-center justify-center">
                         <img
-                            :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`"
+                            :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" 
                             :alt="icon.name"
                             class="h-6 w-6 transition-all duration-200 dark:invert dark:brightness-100 group-hover:brightness-0 group-hover:invert sm:h-8 sm:w-8"
                             loading="lazy"
@@ -159,7 +195,9 @@
                             height="32"
                         />
                     </div>
-                    <span class="mt-1 hidden w-full truncate px-1 text-[10px] font-medium text-center text-slate-600 dark:text-slate-300 sm:mt-2 sm:block sm:text-xs" x-text="icon.name"></span>
+                    
+                    <!-- Name hidden on mobile -->
+                    <span class="icon-name text-[10px] sm:text-xs text-slate-600 dark:text-slate-300 font-medium text-center truncate w-full px-1 mt-1 sm:mt-2" x-text="icon.name"></span>
                 </div>
             </template>
         </div>
@@ -168,7 +206,7 @@
         <div x-show="filteredIcons.length > displayLimit" class="mt-4 text-center sm:mt-6">
             <button
                 @click="displayLimit += 100"
-                class="rounded-xl bg-slate-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-blue-400 dark:focus:ring-blue-400 sm:px-8 sm:py-4 sm:text-base"
+                class="px-6 sm:px-8 py-3 sm:py-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-medium rounded-2xl hover:bg-blue-600 dark:hover:bg-blue-400 transition text-sm sm:text-base"
             >
                 Load <span x-text="Math.min(100, filteredIcons.length - displayLimit)"></span> More Icons
             </button>
@@ -176,12 +214,12 @@
     </div>
 
     <!-- No Results -->
-    <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="rounded-xl border border-slate-200/80 bg-white/80 p-12 text-center shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/70 sm:p-16">
-        <div class="mb-2 text-5xl sm:text-6xl">🔍</div>
-        <p class="text-base font-medium text-slate-700 dark:text-slate-300 sm:text-lg">
+    <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="glass-effect rounded-3xl p-12 sm:p-16 shadow-sm text-center space-y-2">
+        <div class="text-5xl sm:text-6xl mb-2">🔍</div>
+        <p class="text-slate-700 dark:text-slate-300 text-base sm:text-lg font-medium">
             No icons found
         </p>
-        <p class="text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             Try: arrow, user, mail, heart, star
         </p>
     </div>
@@ -205,21 +243,21 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="fixed bottom-4 left-4 right-4 z-50 flex items-center gap-3 rounded-xl border border-slate-200/80 bg-white/90 px-4 py-3 text-slate-900 shadow-lg backdrop-blur-md sm:left-auto sm:right-4 sm:w-96 sm:px-6 sm:py-4 dark:border-slate-800/80 dark:bg-slate-900/80 dark:text-slate-100"
+        class="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-96 glass-effect border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 px-4 py-3 sm:px-6 sm:py-4 rounded-2xl shadow-lg flex items-center gap-3 z-50"
     >
-        <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900">
+        <div class="flex-shrink-0 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-xl p-2">
             <img
                 :src="`/lucide/icons/${iconName}.svg`"
-                class="h-6 w-6"
+                class="w-6 h-6"
                 width="24"
                 height="24"
             />
         </div>
-        <div class="min-w-0 flex-1">
-            <div class="text-sm font-medium sm:text-base">Copied to Clipboard</div>
-            <div class="truncate text-xs text-slate-500 dark:text-slate-400 sm:text-sm" x-text="message"></div>
+        <div class="flex-1 min-w-0">
+            <div class="font-medium text-sm sm:text-base">Copied to Clipboard</div>
+            <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 truncate" x-text="message"></div>
         </div>
-        <span class="flex-shrink-0 text-xl sm:text-2xl">✓</span>
+        <span class="text-xl sm:text-2xl flex-shrink-0">✓</span>
     </div>
 </div>
 
