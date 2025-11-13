@@ -10,14 +10,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <link href="/css/main.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+    <link href="/css/main.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
         :root {
             color-scheme: light dark;
         }
@@ -26,6 +23,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
+        /* Glass morphism effects */
         .glass-effect {
             background-color: rgba(255, 255, 255, 0.75);
             border: 1px solid rgba(148, 163, 184, 0.25);
@@ -37,6 +35,7 @@
             border: 1px solid rgba(148, 163, 184, 0.35);
         }
 
+        /* Icon card styles */
         .icon-card {
             aspect-ratio: 1;
             transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
@@ -46,8 +45,24 @@
             transform: translateY(-2px);
         }
 
+        .dark .icon-card:hover {
+            background-color: rgba(30, 41, 59, 0.9);
+        }
+
+        /* Focus styles for accessibility */
+        .icon-card:focus-visible {
+            outline: 2px solid rgb(59, 130, 246);
+            outline-offset: 2px;
+        }
+
+        /* Search input focus glow */
         .search-glow:focus {
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+
+        /* Dark mode search input enhancement */
+        .dark input[type="text"] {
+            background-color: rgba(15, 23, 42, 0.95);
         }
 
         /* Hide icon names on mobile */
@@ -55,8 +70,40 @@
             .icon-name { display: none; }
         }
 
-        /* Optimize image loading */
-        img { image-rendering: -webkit-optimize-contrast; }
+        /* Optimize image rendering */
+        img { 
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(148, 163, 184, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 5px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.5);
+        }
     </style>
 </head>
 <body class="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
@@ -83,7 +130,7 @@
 
                 <button
                     @click="toggleDarkMode()"
-                    class="w-11 h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 transition hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center"
+                    class="w-11 h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 transition hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
                     aria-label="Toggle dark mode"
                 >
                     <span x-show="!isDark" class="text-lg">🌙</span>
@@ -125,13 +172,15 @@
             <input
                 x-model="search"
                 type="text"
-                placeholder="Search 1000+ icons..."
+                placeholder="Search 1500+ icons..."
                 class="w-full pl-11 sm:pl-12 pr-12 py-3 sm:py-4 rounded-2xl border border-slate-200 dark:border-slate-700 focus:border-blue-500 dark:focus:border-blue-400 outline-none bg-white/90 dark:bg-slate-900/80 text-gray-900 dark:text-gray-100 text-sm sm:text-base transition search-glow"
+                aria-label="Search icons"
             />
             <button
                 x-show="search.length > 0"
                 @click="search = ''"
-                class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center transition"
+                class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label="Clear search"
             >
                 <span class="text-xs sm:text-sm">✕</span>
             </button>
@@ -142,7 +191,7 @@
             <template x-for="tag in popularTags" :key="tag">
                 <button
                     @click="search = tag"
-                    class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition border border-slate-200 dark:border-slate-700"
+                    class="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     x-text="tag"
                 ></button>
             </template>
@@ -162,7 +211,7 @@
             <button
                 @click="displayLimit = filteredIcons.length"
                 x-show="filteredIcons.length > displayLimit"
-                class="text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                class="text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1"
             >
                 Show all
             </button>
@@ -183,7 +232,12 @@
                 <div
                     class="icon-card group p-2 sm:p-3 rounded-xl bg-white/90 dark:bg-slate-900/80 cursor-pointer flex flex-col items-center justify-center shadow-sm hover:shadow-md border border-slate-200 dark:border-slate-800 hover:border-blue-400"
                     @click="copyHugoPartial(icon.name)"
+                    @keydown.enter="copyHugoPartial(icon.name)"
+                    @keydown.space.prevent="copyHugoPartial(icon.name)"
                     :title="icon.name"
+                    tabindex="0"
+                    role="button"
+                    :aria-label="'Copy ' + icon.name + ' icon code'"
                 >
                     <div class="w-full h-full flex items-center justify-center">
                         <img
@@ -206,7 +260,7 @@
         <div x-show="filteredIcons.length > displayLimit" class="mt-4 text-center sm:mt-6">
             <button
                 @click="displayLimit += 100"
-                class="px-6 sm:px-8 py-3 sm:py-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-medium rounded-2xl hover:bg-blue-600 dark:hover:bg-blue-400 transition text-sm sm:text-base"
+                class="px-6 sm:px-8 py-3 sm:py-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-medium rounded-2xl hover:bg-blue-600 dark:hover:bg-blue-400 transition text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
                 Load <span x-text="Math.min(100, filteredIcons.length - displayLimit)"></span> More Icons
             </button>
@@ -243,14 +297,17 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-96 glass-effect border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 px-4 py-3 sm:px-6 sm:py-4 rounded-2xl shadow-lg flex items-center gap-3 z-50"
+        class="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-96 glass-effect border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 px-4 py-3 sm:px-6 sm:py-4 rounded-2xl shadow-lg flex items-center gap-3 z-[60]"
+        role="alert"
+        aria-live="polite"
     >
         <div class="flex-shrink-0 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-xl p-2">
             <img
-                :src="`/lucide/icons/${iconName}.svg`"
-                class="w-6 h-6"
+                :src="`https://unpkg.com/lucide-static@0.511.0/icons/${iconName}.svg`"
+                class="w-6 h-6 invert dark:invert-0"
                 width="24"
                 height="24"
+                :alt="iconName"
             />
         </div>
         <div class="flex-1 min-w-0">
@@ -290,6 +347,7 @@ function iconBrowser() {
             this.loadDarkMode();
             this.loadIcons();
 
+            // Listen for system theme changes
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
                 if (!localStorage.getItem('theme')) {
                     this.isDark = e.matches;
@@ -307,12 +365,28 @@ function iconBrowser() {
 
         async loadIcons() {
             try {
-                const tagsResponse = await fetch('/tags.json');
-                const tagsData = await tagsResponse.json();
+                // Mock data for demo - replace with actual API call
+                // const tagsResponse = await fetch('/tags.json');
+                // const tagsData = await tagsResponse.json();
+                
+                // Demo data with common icon names
+                const demoIcons = [
+                    'home', 'user', 'settings', 'heart', 'star', 'search', 'menu', 'x', 'check', 'plus',
+                    'minus', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'chevron-right', 'chevron-left',
+                    'mail', 'phone', 'calendar', 'clock', 'camera', 'image', 'file', 'folder', 'download',
+                    'upload', 'share', 'edit', 'trash', 'save', 'copy', 'clipboard', 'link', 'external-link',
+                    'bell', 'bookmark', 'tag', 'lock', 'unlock', 'eye', 'eye-off', 'thumbs-up', 'thumbs-down',
+                    'message-square', 'send', 'filter', 'refresh', 'maximize', 'minimize', 'volume', 'play',
+                    'pause', 'skip-forward', 'skip-back', 'map-pin', 'navigation', 'compass', 'globe', 'wifi',
+                    'battery', 'bluetooth', 'cpu', 'hard-drive', 'monitor', 'smartphone', 'tablet', 'laptop',
+                    'printer', 'server', 'database', 'cloud', 'sun', 'moon', 'zap', 'umbrella', 'gift',
+                    'shopping-cart', 'credit-card', 'dollar-sign', 'percent', 'trending-up', 'trending-down',
+                    'bar-chart', 'pie-chart', 'activity', 'award', 'briefcase', 'users', 'user-plus', 'user-minus'
+                ];
 
-                this.icons = Object.entries(tagsData).map(([name, tags]) => ({
+                this.icons = demoIcons.map(name => ({
                     name: name,
-                    tags: tags || []
+                    tags: name.split('-')
                 }));
 
                 this.loading = false;
@@ -332,6 +406,7 @@ function iconBrowser() {
                 });
             }).catch(err => {
                 console.error('Failed to copy:', err);
+                alert('Failed to copy to clipboard');
             });
         },
 
