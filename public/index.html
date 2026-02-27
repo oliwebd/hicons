@@ -1,370 +1,411 @@
 <!DOCTYPE html>
 <html lang="en" x-data="iconBrowser()" :class="{'dark': isDark}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Browse and copy 1000+ beautiful Lucide icons for Hugo static websites. Fast, mobile-friendly icon lookup with instant code copying.">
-    <meta name="keywords" content="lucide icons, hugo icons, svg icons, web icons, icon browser, hicons">
-    <meta name="theme-color" content="#3b82f6">
-    <title>1500+ Beautiful SVG Icons for Hugo Static Website from Lucide Icons | Hicons</title>
-    
+    <meta name="description"
+        content="Browse and copy 1500+ beautiful Lucide icons for Hugo static websites. Fast, mobile-friendly icon lookup with instant code copying.">
+    <meta name="keywords"
+        content="lucide icons, hugo icons, svg icons, web icons, icon browser, hicons, material design 3">
+    <meta name="theme-color" content="#6750A4">
+    <title>1500+ Beautiful SVG Icons for Hugo | Hicons MD3</title>
+
     <link href="/css/main.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        
-        * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005D;
+            --md-sys-color-secondary: #625B71;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #E8DEF8;
+            --md-sys-color-on-secondary-container: #1D192B;
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-on-surface: #1D1B20;
+            --md-sys-color-surface-variant: #E7E0EB;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
         }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(229, 231, 235, 0.5);
+
+        .dark {
+            --md-sys-color-primary: #D0BCFF;
+            --md-sys-color-on-primary: #381E72;
+            --md-sys-color-primary-container: #4F378B;
+            --md-sys-color-on-primary-container: #EADDFF;
+            --md-sys-color-secondary: #CCC2DC;
+            --md-sys-color-on-secondary: #332D41;
+            --md-sys-color-secondary-container: #4A4458;
+            --md-sys-color-on-secondary-container: #E8DEF8;
+            --md-sys-color-surface: #141218;
+            --md-sys-color-on-surface: #E6E1E5;
+            --md-sys-color-surface-variant: #49454F;
+            --md-sys-color-on-surface-variant: #CAC4D0;
+            --md-sys-color-outline: #938F99;
         }
-        
-        .dark .glass-effect {
-            background: rgba(31, 41, 55, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(75, 85, 99, 0.5);
+
+        * {
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        
+
+        .md-surface-1 {
+            background-color: color-mix(in srgb, var(--md-sys-color-surface), var(--md-sys-color-primary) 5%);
+        }
+
+        .md-surface-2 {
+            background-color: color-mix(in srgb, var(--md-sys-color-surface), var(--md-sys-color-primary) 8%);
+        }
+
+        .md-surface-3 {
+            background-color: color-mix(in srgb, var(--md-sys-color-surface), var(--md-sys-color-primary) 11%);
+        }
+
         .icon-card {
-            aspect-ratio: 1;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        
-        .icon-card:hover {
-            transform: translateY(-4px) scale(1.05);
+
+        .icon-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: currentColor;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
-        
-        .icon-card:active {
-            transform: translateY(-2px) scale(1.02);
+
+        .icon-card:hover::after {
+            opacity: 0.08;
         }
-        
-        .search-glow:focus {
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+
+        .icon-card:active::after {
+            opacity: 0.12;
         }
-        
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
+
+        .md-elevation-1 {
+            box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+        .md-elevation-2 {
+            box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
         }
-        
-        /* Hide icon names on mobile */
-        @media (max-width: 640px) {
-            .icon-name { display: none; }
+
+        [x-cloak] {
+            display: none !important;
         }
-        
-        /* Optimize image loading */
-        img { image-rendering: -webkit-optimize-contrast; }
+
+        /* Custom scrollbar for MD3 feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--md-sys-color-outline);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen transition-colors duration-500">
 
-<div class="max-w-[1600px] mx-auto px-3 sm:px-6 py-4 sm:py-8">
-    
-    <!-- Hero Header -->
-    <header class="mb-6 sm:mb-8">
-        <div class="glass-effect rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl">
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl gradient-bg flex items-center justify-center shadow-lg animate-float">
-                        <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent leading-tight">
-                            Hicons (Lucide Icons for Hugo)
-                        </h1>
-                        <p class="text-xs sm:text-base text-gray-600 dark:text-gray-400 mt-0.5 sm:mt-1">1500+ Beautiful Icons for Hugo static website</p>
+<body
+    class="bg-[var(--md-sys-color-surface)] text-[var(--md-sys-color-on-surface)] min-h-screen transition-colors duration-300">
+
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-6 sm:py-12">
+
+        <!-- Header Section -->
+        <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-12">
+            <div class="flex items-center gap-4">
+                <div
+                    class="w-14 h-14 rounded-2xl bg-[var(--md-sys-color-primary)] flex items-center justify-center text-[var(--md-sys-color-on-primary)] shadow-lg">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tight text-[var(--md-sys-color-on-surface)]">Hicons</h1>
+                    <p class="text-[var(--md-sys-color-on-surface-variant)] font-medium">Lucide Icons for Hugo Static
+                        Websites</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="https://github.com/oliwebd/hicons/" target="_blank"
+                    class="flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold transition hover:opacity-90">
+                    <span>Docs</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <button @click="toggleDarkMode()"
+                    class="w-12 h-12 rounded-full md-surface-2 flex items-center justify-center border border-[var(--md-sys-color-outline)] transition hover:bg-[var(--md-sys-color-surface-variant)]"
+                    aria-label="Toggle dark mode">
+                    <span x-show="!isDark" class="text-xl">🌙</span>
+                    <span x-show="isDark" class="text-xl">☀️</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Card / Quick Info -->
+        <div class="md-surface-2 rounded-[32px] p-6 sm:p-10 mb-10 overflow-hidden relative">
+            <div class="relative z-10 flex flex-col lg:flex-row gap-8 items-center">
+                <div class="flex-1 space-y-4">
+                    <span
+                        class="px-4 py-1.5 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] text-sm font-bold uppercase tracking-wider">v1.0.4
+                        Released</span>
+                    <h2 class="text-4xl sm:text-5xl font-extrabold leading-tight">Everything you need <br> for icons in
+                        Hugo.</h2>
+                    <div class="flex flex-wrap gap-4 mt-6">
+                        <div
+                            class="flex items-center gap-3 px-5 py-3 rounded-2xl md-surface-3 border border-[var(--md-sys-color-outline)]/20">
+                            <span class="text-2xl">📦</span>
+                            <div>
+                                <p class="text-xs font-bold uppercase opacity-60">Installation</p>
+                                <code class="text-sm font-mono">npx hicons</code>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-center gap-3 px-5 py-3 rounded-2xl md-surface-3 border border-[var(--md-sys-color-outline)]/20">
+                            <span class="text-2xl">✨</span>
+                            <div>
+                                <p class="text-xs font-bold uppercase opacity-60">Usage</p>
+                                <code class="text-sm font-mono">partial "icons.html"</code>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <button
-                    @click="toggleDarkMode()"
-                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white dark:bg-gray-800 hover:scale-110 transition-transform shadow-lg flex items-center justify-center border border-gray-200 dark:border-gray-700"
-                    aria-label="Toggle dark mode"
-                >
-                    <span x-show="!isDark" class="text-xl sm:text-2xl">🌙</span>
-                    <span x-show="isDark" class="text-xl sm:text-2xl">☀️</span>
+                <div class="hidden lg:block w-1/3">
+                    <div
+                        class="aspect-square rounded-full bg-gradient-to-tr from-[var(--md-sys-color-primary)] to-[var(--md-sys-color-secondary)] opacity-10 blur-3xl absolute -right-20 -top-20">
+                    </div>
+                    <div
+                        class="md-surface-3 rounded-[32px] p-6 border border-[var(--md-sys-color-outline)]/10 shadow-xl transform rotate-3">
+                        <pre class="text-[10px] sm:text-xs font-mono text-[var(--md-sys-color-on-surface-variant)]"><code>{{ partial "icons.html" (dict 
+  "name" "heart" 
+  "class" "w-6 h-6 text-pink-500"
+) }}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="sticky top-6 z-40 mb-10">
+            <div class="relative max-w-2xl mx-auto group">
+                <div
+                    class="absolute left-6 top-1/2 -translate-y-1/2 text-[var(--md-sys-color-on-surface-variant)] transition-colors group-focus-within:text-[var(--md-sys-color-primary)]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <input x-model="search" type="text" placeholder="Search from 1500+ icons..."
+                    class="w-full pl-16 pr-14 py-5 rounded-full md-surface-2 border-2 border-transparent focus:border-[var(--md-sys-color-primary)] outline-none text-lg shadow-lg group-hover:md-elevation-1 transition-all" />
+                <button x-show="search.length > 0" @click="search = ''" x-cloak
+                    class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full hover:bg-[var(--md-sys-color-surface-variant)] flex items-center justify-center transition">
+                    <span class="text-xl">✕</span>
                 </button>
             </div>
 
-            <!-- Main Use -->
-            <div class="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl sm:rounded-2xl p-3 sm:p-5 text-white shadow-xl mb-3 sm:mb-4 text-center">
-                <p class="text-sm sm:text-lg font-bold mb-1">🎯 Search → Click Icon → Code Copied → Paste in Hugo Layout → Run <code class="bg-white/30 px-2 py-0.5 rounded">npx hicons</code></p>
-                <p class="text-xs sm:text-sm opacity-90">No manual SVG downloads. Auto-generates your icons.html partial. <a href="https://github.com/oliwebd/hicons/" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline font-semibold">Full Documentation →</a></p>
+            <!-- Popular Chips -->
+            <div class="flex flex-wrap justify-center gap-2 mt-4">
+                <template x-for="tag in popularTags" :key="tag">
+                    <button @click="search = tag"
+                        class="px-4 py-2 text-sm font-semibold rounded-lg md-surface-2 text-[var(--md-sys-color-on-surface-variant)] border border-[var(--md-sys-color-outline)]/30 hover:bg-[var(--md-sys-color-secondary-container)] hover:text-[var(--md-sys-color-on-secondary-container)] transition-all"
+                        x-text="tag"></button>
+                </template>
             </div>
+        </div>
 
-            <!-- Quick Start Guide -->
-            <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
-                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3 sm:p-4 text-white shadow-lg">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="text-lg sm:text-2xl">📦</span>
-                        <p class="font-bold text-sm sm:text-base">Install</p>
-                    </div>
-                    <code class="block bg-white/20 rounded-lg p-2 text-xs sm:text-sm font-mono backdrop-blur">npx hicons</code>
+        <!-- Main Content Area -->
+        <div class="md-surface-1 rounded-[32px] p-4 sm:p-8 shadow-inner min-h-[500px]">
+            <!-- Results Header -->
+            <div class="flex items-center justify-between mb-8 px-2">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-4xl font-extrabold text-[var(--md-sys-color-primary)]"
+                        x-text="displayedIcons.length"></span>
+                    <span class="text-lg font-medium text-[var(--md-sys-color-on-surface-variant)]"
+                        x-text="displayedIcons.length === 1 ? 'Icon' : 'Icons'"></span>
+                    <span x-show="search.length > 0" x-cloak class="text-sm opacity-60 ml-2">matching "<span
+                            x-text="search"></span>"</span>
                 </div>
-                
-                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-3 sm:p-4 text-white shadow-lg">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="text-lg sm:text-2xl">✨</span>
-                        <p class="font-bold text-sm sm:text-base">Click to Copy</p>
-                    </div>
-                    <code class="block bg-white/20 rounded-lg p-2 text-[10px] sm:text-xs font-mono backdrop-blur truncate">partial "icons.html" ...</code>
-                </div>
+
+                <button @click="displayLimit = filteredIcons.length" x-show="filteredIcons.length > displayLimit"
+                    x-cloak class="text-[var(--md-sys-color-primary)] font-bold hover:underline">
+                    Show All
+                </button>
             </div>
-        </div>
-    </header>
 
-    <!-- Search Section -->
-    <div class="glass-effect rounded-2xl p-3 sm:p-6 shadow-xl mb-4 sm:mb-6">
-        <div class="relative mb-3 sm:mb-4">
-            <div class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-            </div>
-            <input
-                x-model="search"
-                type="text"
-                placeholder="Search 1000+ icons..."
-                class="w-full pl-10 sm:pl-12 pr-12 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-2 border-transparent focus:border-blue-500 dark:focus:border-blue-400 outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm sm:text-base transition search-glow shadow-inner"
-            />
-            <button
-                x-show="search.length > 0"
-                @click="search = ''"
-                class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center justify-center transition"
-            >
-                <span class="text-xs sm:text-sm">✕</span>
-            </button>
-        </div>
-        
-        <!-- Popular Tags -->
-        <div class="flex flex-wrap gap-1.5 sm:gap-2">
-            <template x-for="tag in popularTags" :key="tag">
-                <button
-                    @click="search = tag"
-                    class="px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition shadow-sm hover:shadow-md border border-gray-200 dark:border-gray-700"
-                    x-text="tag"
-                ></button>
-            </template>
-        </div>
-    </div>
-
-    <!-- Results Counter -->
-    <div class="glass-effect rounded-xl p-2 sm:p-4 shadow-lg mb-3 sm:mb-4">
-        <div class="flex items-center justify-between text-xs sm:text-sm">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" x-text="displayedIcons.length"></span>
-                <span class="text-gray-600 dark:text-gray-400">
-                    <span class="hidden sm:inline">icons</span>
-                    <span x-show="search.length > 0" class="text-gray-500"> for "<span class="font-semibold text-blue-600 dark:text-blue-400" x-text="search"></span>"</span>
-                </span>
-            </div>
-            <button
-                @click="displayLimit = filteredIcons.length"
-                x-show="filteredIcons.length > displayLimit"
-                class="text-blue-600 dark:text-blue-400 font-semibold hover:underline text-xs sm:text-sm"
-            >
-                Show all
-            </button>
-        </div>
-    </div>
-
-    <!-- Loading State -->
-    <div x-show="loading" class="glass-effect rounded-2xl p-12 sm:p-20 shadow-xl text-center">
-        <div class="inline-block animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-gray-200 dark:border-gray-700 border-t-blue-500 mb-4"></div>
-        <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">Loading beautiful icons...</p>
-    </div>
-
-    <!-- Icons Grid -->
-    <div x-show="!loading && displayedIcons.length > 0" class="glass-effect rounded-2xl p-2 sm:p-6 shadow-2xl">
-        <!-- Mobile: 5 columns, Desktop: 10 columns -->
-        <div class="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1.5 sm:gap-3">
-            <template x-for="icon in displayedIcons" :key="icon.name">
+            <!-- Loading -->
+            <div x-show="loading" class="flex flex-col items-center justify-center py-20 gap-4">
                 <div
-                    class="icon-card group p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white dark:bg-gray-800 hover:bg-gradient-to-br hover:from-blue-500 hover:to-purple-500 cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-2xl border border-gray-200 dark:border-gray-700 hover:border-transparent"
-                    @click="copyHugoPartial(icon.name)"
-                    :title="icon.name"
-                >
-                    <div class="w-full h-full flex items-center justify-center">
-                        <img 
-                            :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" 
-                            :alt="icon.name"
-                            class="w-6 h-6 sm:w-8 sm:h-8 transition-all duration-200 dark:invert dark:brightness-100 group-hover:brightness-0 group-hover:invert"
-                            loading="lazy"
-                            width="32"
-                            height="32"
-                        />
-                    </div>
-                    
-                    <!-- Name hidden on mobile -->
-                    <span class="icon-name text-[9px] sm:text-xs text-gray-700 dark:text-gray-300 font-medium text-center truncate w-full px-1 mt-1 sm:mt-2 group-hover:text-white transition" x-text="icon.name"></span>
+                    class="w-12 h-12 border-4 border-[var(--md-sys-color-secondary-container)] border-t-[var(--md-sys-color-primary)] rounded-full animate-spin">
                 </div>
-            </template>
-        </div>
-        
-        <!-- Load More Button -->
-        <div x-show="filteredIcons.length > displayLimit" class="mt-4 sm:mt-6 text-center">
-            <button
-                @click="displayLimit += 100"
-                class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all text-sm sm:text-base"
-            >
-                Load <span x-text="Math.min(100, filteredIcons.length - displayLimit)"></span> More Icons
-            </button>
+                <p class="font-medium opacity-60 text-lg">Drawing icons...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div x-show="!loading && filteredIcons.length === 0" x-cloak
+                class="flex flex-col items-center justify-center py-20 text-center">
+                <div class="w-24 h-24 rounded-full md-surface-3 flex items-center justify-center text-5xl mb-6">🔍</div>
+                <h3 class="text-2xl font-bold mb-2">No matching icons</h3>
+                <p class="text-[var(--md-sys-color-on-surface-variant)]">Try searching for keywords like 'home', 'user',
+                    or 'arrow'</p>
+            </div>
+
+            <!-- Grid -->
+            <div x-show="!loading && displayedIcons.length > 0"
+                class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-4">
+                <template x-for="icon in displayedIcons" :key="icon.name">
+                    <div class="icon-card group md-surface-2 aspect-square rounded-3xl flex flex-col items-center justify-center cursor-pointer p-4 md-elevation-1 hover:md-elevation-2 hover:scale-[1.02] active:scale-95 text-[var(--md-sys-color-primary)]"
+                        @click="copyHugoPartial(icon.name)" :title="icon.name">
+                        <img :src="`https://unpkg.com/lucide-static@0.511.0/icons/${icon.name}.svg`" :alt="icon.name"
+                            class="w-8 h-8 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110 dark:invert"
+                            loading="lazy" />
+                        <span
+                            class="mt-3 text-[10px] font-bold text-center truncate w-full text-[var(--md-sys-color-on-surface-variant)] group-hover:text-[var(--md-sys-color-on-surface)]"
+                            x-text="icon.name"></span>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Load More -->
+            <div x-show="filteredIcons.length > displayLimit" x-cloak class="mt-12 flex justify-center">
+                <button @click="displayLimit += 100"
+                    class="px-10 py-5 rounded-full bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] font-bold text-lg shadow-xl hover:md-elevation-2 transition-all active:scale-95">
+                    Load More Icons
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- No Results -->
-    <div x-show="!loading && icons.length > 0 && filteredIcons.length === 0" class="glass-effect rounded-2xl p-12 sm:p-20 shadow-xl text-center">
-        <div class="text-5xl sm:text-6xl mb-4 animate-bounce">🔍</div>
-        <p class="text-gray-700 dark:text-gray-300 text-base sm:text-lg font-bold mb-2">
-            No icons found
-        </p>
-        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-            Try: arrow, user, mail, heart, star
-        </p>
-    </div>
-</div>
-
-<!-- Toast Notification -->
-<div
-    x-data="{ show: false, message: '', iconName: '' }"
-    @notify.window="
+    <!-- Snackbar (MD3 Toast) -->
+    <div x-data="{ show: false, message: '', iconName: '' }" @notify.window="
         show = true;
         message = $event.detail.message;
         iconName = $event.detail.iconName;
-        setTimeout(() => show = false, 2000);
-    "
->
-    <div 
-        x-show="show"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 translate-y-4 scale-90"
-        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0 scale-95"
-        class="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-96 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-3 sm:px-6 sm:py-4 rounded-2xl shadow-2xl flex items-center gap-3 z-50"
-    >
-        <div class="flex-shrink-0 bg-white rounded-lg p-2">
-            <img 
-                :src="`/lucide/icons/${iconName}.svg`" 
-                class="w-6 h-6"
-                width="24"
-                height="24"
-            />
+        setTimeout(() => show = false, 3000);
+    ">
+        <div x-show="show" x-cloak x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-20" x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed bottom-8 left-1/2 -translate-x-1/2 min-w-[344px] max-w-[90vw] bg-[var(--md-sys-color-on-surface)] text-[var(--md-sys-color-surface)] py-3 px-6 rounded-2xl shadow-2xl flex items-center justify-between gap-4 z-50 overflow-hidden">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[var(--md-sys-color-surface)] p-1 flex items-center justify-center">
+                    <img :src="`https://unpkg.com/lucide-static@0.511.0/icons/${iconName}.svg`" class="w-full h-full" />
+                </div>
+                <p class="font-medium text-sm">Copied <span class="font-bold font-mono" x-text="message"></span> to
+                    clipboard</p>
+            </div>
+            <button @click="show = false"
+                class="text-[var(--md-sys-color-primary)] font-bold uppercase text-xs tracking-wider">Close</button>
         </div>
-        <div class="flex-1 min-w-0">
-            <div class="font-bold text-sm sm:text-base">Copied to Clipboard!</div>
-            <div class="text-xs sm:text-sm opacity-90 truncate" x-text="message"></div>
-        </div>
-        <span class="text-2xl sm:text-3xl flex-shrink-0">✓</span>
     </div>
-</div>
 
-<script>
-function iconBrowser() {
-    return {
-        icons: [],
-        search: '',
-        loading: true,
-        isDark: false,
-        displayLimit: 100,
-        popularTags: ['arrow', 'user', 'mail', 'file', 'heart', 'star', 'home', 'settings', 'check', 'edit', 'search', 'menu', 'plus', 'calendar'],
-        
-        get filteredIcons() {
-            const query = this.search.toLowerCase().trim();
-            if (!query) return this.icons;
-            
-            return this.icons.filter(icon => {
-                if (icon.name.toLowerCase().includes(query)) return true;
-                if (icon.tags && icon.tags.some(tag => tag.toLowerCase().includes(query))) return true;
-                return false;
-            });
-        },
-        
-        get displayedIcons() {
-            return this.filteredIcons.slice(0, this.displayLimit);
-        },
-        
-        init() {
-            this.loadDarkMode();
-            this.loadIcons();
-            
-            // Watch for system theme changes
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                if (!localStorage.getItem('theme')) {
-                    this.isDark = e.matches;
+    <script>
+        function iconBrowser() {
+            return {
+                icons: [],
+                search: '',
+                loading: true,
+                isDark: false,
+                displayLimit: 100,
+                popularTags: ['arrow', 'user', 'mail', 'file', 'heart', 'star', 'home', 'settings', 'check', 'edit', 'search', 'menu', 'plus', 'calendar'],
+
+                get filteredIcons() {
+                    const query = this.search.toLowerCase().trim();
+                    if (!query) return this.icons;
+
+                    return this.icons.filter(icon => {
+                        if (icon.name.toLowerCase().includes(query)) return true;
+                        if (icon.tags && icon.tags.some(tag => tag.toLowerCase().includes(query))) return true;
+                        return false;
+                    });
+                },
+
+                get displayedIcons() {
+                    return this.filteredIcons.slice(0, this.displayLimit);
+                },
+
+                init() {
+                    this.loadDarkMode();
+                    this.loadIcons();
+
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                        if (!localStorage.getItem('theme')) {
+                            this.isDark = e.matches;
+                            this.updateThemeClass();
+                        }
+                    });
+                },
+
+                loadDarkMode() {
+                    const savedTheme = localStorage.getItem('theme');
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    this.isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+                    this.updateThemeClass();
+                },
+
+                async loadIcons() {
+                    try {
+                        const tagsResponse = await fetch('/tags.json');
+                        const tagsData = await tagsResponse.json();
+
+                        this.icons = Object.entries(tagsData).map(([name, tags]) => ({
+                            name: name,
+                            tags: tags || []
+                        }));
+
+                        this.loading = false;
+                    } catch (error) {
+                        console.error('Failed to load icons:', error);
+                        this.loading = false;
+                    }
+                },
+
+                copyHugoPartial(iconName) {
+                    const hugoCode = `{{ partial "icons.html" (dict "name" "${iconName}" "class" "w-6 h-6") }}`;
+
+                    navigator.clipboard.writeText(hugoCode).then(() => {
+                        this.$dispatch('notify', {
+                            message: iconName,
+                            iconName: iconName
+                        });
+                    }).catch(err => {
+                        console.error('Failed to copy:', err);
+                    });
+                },
+
+                toggleDarkMode() {
+                    this.isDark = !this.isDark;
+                    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+                    this.updateThemeClass();
+                },
+
+                updateThemeClass() {
+                    if (this.isDark) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
                 }
-            });
-        },
-        
-        loadDarkMode() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            this.isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-            
-            if (this.isDark) {
-                document.documentElement.classList.add('dark');
-            }
-        },
-        
-        async loadIcons() {
-            try {
-                const tagsResponse = await fetch('/tags.json');
-                const tagsData = await tagsResponse.json();
-                
-                this.icons = Object.entries(tagsData).map(([name, tags]) => ({
-                    name: name,
-                    tags: tags || []
-                }));
-                
-                this.loading = false;
-            } catch (error) {
-                console.error('Failed to load icons:', error);
-                this.loading = false;
-            }
-        },
-        
-        copyHugoPartial(iconName) {
-            const hugoCode = `{{ partial "icons.html" (dict "name" "${iconName}" "class" "w-6 h-6") }}`;
-            
-            navigator.clipboard.writeText(hugoCode).then(() => {
-                this.$dispatch('notify', { 
-                    message: iconName,
-                    iconName: iconName
-                });
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
-        },
-        
-        toggleDarkMode() {
-            this.isDark = !this.isDark;
-            
-            if (this.isDark) {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
             }
         }
-    }
-}
-</script>
+    </script>
 
 </body>
+
 </html>
